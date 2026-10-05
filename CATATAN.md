@@ -1,5 +1,12 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
-Terakhir diperbarui: 6 Okt 2026 pagi (UTC+7). Bahasa: Indonesia.
+Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
+
+## 0. STATUS TERAKHIR (cek live 05:00) — lanjut di kantor
+- Bot loop, snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://together-royalty-intelligence-tennessee.trycloudflare.com` (berubah tiap restart!)
+- Vercel: BELUM deploy. Token PAT: BELUM direvoke (masih aktif!).
+- Lanjut di kantor mulai dari: deploy Vercel + revoke token (prioritas 1-2).
+- Sebelum tutup laptop: klik STOP Trading Bot (hindari proses yatim/ganda saat dibuka lagi).
 
 ## 1. Ringkasan
 Bot trading kripto **otonom (agentic), paper trading, gratis, ringan (<100MB RAM)** untuk laptop 4GB.
