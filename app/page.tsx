@@ -82,9 +82,9 @@ export default function Page() {
   void now;
 
   return (
-    <div className="wrap">
+    <div className="wrap terminal">
       <nav className="topnav">
-        <div className="brand">🏢 <b>Office Trading</b> <span>bitget • paper</span></div>
+        <div className="brand">🐺 <b>WOLF DESK</b> <span>bitget • {d?.mode ?? "paper"} • {d?.exchange ?? ""}</span></div>
         <div className="navkanan">
           {d?.portofolio?.ekuitas ? (
             <span className="chip">💰 Rp {Number(d.portofolio.ekuitas).toLocaleString("id-ID")} (
@@ -93,8 +93,8 @@ export default function Page() {
           <span className={`badge ${d && !d.demo ? "live" : "demo"}`}>
             {d && !d.demo ? "● LIVE" : "● DEMO"}
           </span>
-          <a href="/chat" className="chatlink">⚡ Chat AI</a>
-          <a href="/bubbles" className="chatlink bubblelink">🫧 Bubbles</a>
+          <a href="/chat" className="chatlink">⚡</a>
+          <a href="/bubbles" className="chatlink bubblelink">🫧</a>
         </div>
       </nav>
 
@@ -107,99 +107,88 @@ export default function Page() {
       {d?.offline && <div className="err">⚠️ Laptop offline (tunnel mati?). Menampilkan data terakhir/demo. Nyalakan office + tunnel.</div>}
       {err && <div className="err">{err}</div>}
 
-      <section className={`status ${tugas ? "tugas" : "nganggur"}`}>
-        <div className="char">{tugas ? "🤖" : "😴"}</div>
-        <div className="sinfo">
-          <div className="stitle">{tugas ? "BERTUGAS" : "Nganggur"}</div>
-          <div className="sub">
-            {!d ? "menghubungi bot…" :
-             d.demo ? "data contoh (pasang BOT_URL agar LIVE)" :
-             d.offline ? "bot/tunnel mati" :
-             umur === null ? "waktu data tak terbaca" :
-             `update ${d.waktu} (${fmtUmur(umur)})${umur >= 300 ? " — basi! cek bot/tunnel" : ""}`}
-          </div>
-        </div>
-      </section>
-
-      <h3>🤖 Pasukan Agen (12)</h3>
-      <div className="agens">{KARAKTER.map((a) => (
-        <div key={a.id} className={`agen ${tugas ? "on" : ""}`} title={a.peran}>
-          <span className="aemoji">{a.emoji}</span>
-          <span className="anama">{a.nama}</span>
-          <span className="ainfo">{d ? a.info(d) : "…"}</span>
-        </div>
-      ))}</div>
-
-      <h3>📈 Pasar</h3>
-      {d?.simbol?.[0]?.gecko ? (
-        <div className="sub" style={{ marginBottom: 10 }}>
-          🌍 Dominasi BTC {d.simbol[0].gecko.btc_dom}% • Kapitalisasi global 24h {d.simbol[0].gecko.mcap_chg24}% (CoinGecko)
-          {(d.simbol[0].gecko.trending ?? []).length > 0 ? (
-            <> • 🔥 Trending: {(d.simbol[0].gecko.trending ?? []).join(" ")}</>
-          ) : null}
-        </div>
-      ) : null}
-      <div className="grid">
-        {(d?.simbol ?? []).map((s) => (
-          <div className={`card pasar ${warna(s.sinyal_final)}`} key={s.symbol}>
-            <div className="pasaratas">
-              <h2>{s.symbol}</h2>
-              <span className={`pilsinyal ${warna(s.sinyal_final)}`}>{s.sinyal_final}</span>
+      <div className="layar">
+        <div className="utama">
+          <section className={`status ${tugas ? "tugas" : "nganggur"}`}>
+            <div className="char">{tugas ? "🤖" : "😴"}</div>
+            <div className="sinfo">
+              <div className="stitle">{tugas ? "BERTUGAS" : "Nganggur"}</div>
+              <div className="sub">
+                {!d ? "menghubungi bot…" :
+                 d.demo ? "data contoh (pasang BOT_URL agar LIVE)" :
+                 d.offline ? "bot/tunnel mati" :
+                 umur === null ? "waktu data tak terbaca" :
+                 `update ${d.waktu} (${fmtUmur(umur)})${umur >= 300 ? " — basi! cek bot/tunnel" : ""}`}
+              </div>
             </div>
-            <div className="harga">${s.harga?.toLocaleString("en-US")} {s.gecko ? (
-              <span className={`chg ${(s.gecko.chg24 ?? 0) >= 0 ? "beli" : "jual"}`}>
-                {(s.gecko.chg24 ?? 0) >= 0 ? "▲" : "▼"} {Math.abs(s.gecko.chg24 ?? 0).toFixed(2)}%
-              </span>) : null}</div>
-            {(s as any).alasan_otak ? (
-              <div className="airow">🧠 {(s as any).alasan_otak}{((s as any).poin_otak ?? []).length > 0 ? ` — ${((s as any).poin_otak ?? []).join(" • ")}` : ""}</div>
-            ) : null}
-            <div className="row"><span>Analis</span><b className={warna(s.sinyal)}>{s.sinyal} • {((s.confidence ?? 0) * 100).toFixed(0)}%</b></div>
-            <div className="row"><span>Stop-loss</span><b>{s.stop_loss ? "$" + Number(s.stop_loss).toLocaleString("en-US") : "—"}</b></div>
-            <div className="row"><span>Take-profit</span><b>{s.take_profit ? "$" + Number(s.take_profit).toLocaleString("en-US") : "—"}</b></div>
+            <div className="agens">{KARAKTER.map((a) => (
+              <div key={a.id} className={`agen ${tugas ? "on" : ""}`} title={`${a.nama} — ${a.peran}`}>
+                <span className="aemoji">{a.emoji}</span>
+                <span className="anama">{a.nama}</span>
+              </div>
+            ))}</div>
+          </section>
+
+          <h3>📈 Pasar {d?.simbol?.[0]?.gecko ? (
+            <span className="sub">🌍 Dom BTC {d.simbol[0].gecko.btc_dom}% • MC 24h {d.simbol[0].gecko.mcap_chg24}% • 🔥 {(d.simbol[0].gecko.trending ?? []).slice(0, 5).join(" ")}</span>
+          ) : null}</h3>
+          <div className="grid pasar6">
+            {(d?.simbol ?? []).map((s) => (
+              <div className={`card pasar ${warna(s.sinyal_final)}`} key={s.symbol}>
+                <div className="pasaratas">
+                  <h2>{s.symbol.replace("USDT", "")}</h2>
+                  <span className={`pilsinyal ${warna(s.sinyal_final)}`}>{s.sinyal_final}</span>
+                </div>
+                <div className="harga">${s.harga?.toLocaleString("en-US")} {s.gecko ? (
+                  <span className={`chg ${(s.gecko.chg24 ?? 0) >= 0 ? "beli" : "jual"}`}>
+                    {(s.gecko.chg24 ?? 0) >= 0 ? "▲" : "▼"} {Math.abs(s.gecko.chg24 ?? 0).toFixed(2)}%
+                  </span>) : null}</div>
+                {(s as any).alasan_otak ? (
+                  <div className="airow">🧠 {(s as any).alasan_otak}</div>
+                ) : null}
+                <div className="row"><span>Analis {((s.confidence ?? 0) * 100).toFixed(0)}%</span><b className={warna(s.sinyal)}>{s.sinyal}</b></div>
+                <div className="row"><span>SL / TP</span><b>{s.stop_loss ? "$" + Number(s.stop_loss).toLocaleString("en-US") : "—"} / {s.take_profit ? "$" + Number(s.take_profit).toLocaleString("en-US") : "—"}</b></div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <aside className="samping">
+          <h3>📂 Posisi ({Object.keys(d?.posisi ?? {}).length})</h3>
+          {Object.keys(d?.posisi ?? {}).length === 0 ? <div className="kosong2">Tidak ada posisi.</div> : (
+            <div className="tabelkartu scroll"><table>
+              <thead><tr><th>Simbol</th><th>Side</th><th>@</th><th>SL/TP</th></tr></thead>
+              <tbody>
+                {Object.entries(d!.posisi).map(([k, v]: any) => (
+                  <tr key={k}><td><b>{k.replace("USDT", "")}</b> {v.leverage ? `${v.leverage}x` : ""}</td><td className={v.side === "LONG" ? "beli" : "jual"}>{v.side ?? "SPOT"}</td><td>{v.harga_beli}</td><td>{v.stop_loss}/{v.take_profit}</td></tr>
+                ))}
+              </tbody>
+            </table></div>
+          )}
+
+          <h3>📜 Riwayat</h3>
+          {(d?.riwayat ?? []).length === 0 ? <div className="kosong2">Belum ada trade.</div> : (
+            <div className="tabelkartu scroll"><table>
+              <tbody>
+                {d!.riwayat.slice().reverse().slice(0, 8).map((r: any, i: number) => (
+                  <tr key={i}><td>{r.symbol?.replace("USDT", "")}</td>
+                    <td className={r.pnl >= 0 ? "beli" : "jual"}>{r.pnl_persen}%</td>
+                    <td><small>{r.alasan}</small></td></tr>
+                ))}
+              </tbody>
+            </table></div>
+          )}
+
+          <h3>🏦 Akun {d?.akun?.terhubung ? <span className="badge live mini">● {d.akun.exchange}</span> : <span className="badge demo mini">○ off</span>}</h3>
+          {!d?.akun?.terhubung ? <div className="kosong2">Paper mode.</div> : (
+            <div className="tabelkartu scroll"><table><tbody>
+              {(d!.akun.saldo ?? []).slice(0, 6).map((s: any, i: number) => (
+                <tr key={i}><td>{s.koin}</td><td>{s.total}</td></tr>
+              ))}
+            </tbody></table></div>
+          )}
+        </aside>
       </div>
-
-      <h3>🏦 Akun Exchange {d?.akun?.terhubung ? <span className="badge live">● TERHUBUNG ({d.akun.exchange})</span> : <span className="badge demo">○ BELUM KONEK</span>}</h3>
-      {!d?.akun?.terhubung ? <div className="kosong2">Paper mode — akun asli belum dikonekkan{d?.akun?.info && d.akun.exchange !== "off" ? `: ${d.akun.info}` : ""}. Isi API key (read-only) di config/env bot untuk pantau saldo asli.</div> : (
-        <div className="tabelkartu"><table>
-          <thead><tr><th>Koin</th><th>Saldo</th><th></th></tr></thead>
-          <tbody>
-            {(d!.akun.saldo ?? []).map((s: any, i: number) => (
-              <tr key={i}><td>{s.koin}</td><td>{s.total}</td><td /></tr>
-            ))}
-            {(d!.akun.posisi_fut ?? []).map((p: any, i: number) => (
-              <tr key={"f" + i}><td>{p.symbol} ({p.side})</td><td>{p.qty} @ {p.entry}</td><td>fut</td></tr>
-            ))}
-          </tbody>
-        </table></div>
-      )}
-
-      <h3>📂 Posisi terbuka ({Object.keys(d?.posisi ?? {}).length})</h3>
-      {Object.keys(d?.posisi ?? {}).length === 0 ? <div className="kosong2">Tidak ada posisi.</div> : (
-        <div className="tabelkartu"><table>
-          <thead><tr><th>Simbol</th><th>Side</th><th>Lev</th><th>Beli @</th><th>Koin</th><th>SL</th><th>TP</th></tr></thead>
-          <tbody>
-            {Object.entries(d!.posisi).map(([k, v]: any) => (
-              <tr key={k}><td>{k}</td><td>{v.side ?? "SPOT"}</td><td>{v.leverage ? `${v.leverage}x` : "—"}</td><td>{v.harga_beli}</td><td>{v.koin}</td><td>{v.stop_loss}</td><td>{v.take_profit}</td></tr>
-            ))}
-          </tbody>
-        </table></div>
-      )}
-
-      <h3>📜 Riwayat (20 terakhir)</h3>
-      {(d?.riwayat ?? []).length === 0 ? <div className="kosong2">Belum ada trade tertutup.</div> : (
-        <div className="tabelkartu"><table>
-          <thead><tr><th>Waktu</th><th>Simbol</th><th>PnL</th><th>Alasan</th></tr></thead>
-          <tbody>
-            {d!.riwayat.slice().reverse().map((r: any, i: number) => (
-              <tr key={i}><td>{r.waktu}</td><td>{r.symbol}</td>
-                <td className={r.pnl >= 0 ? "beli" : "jual"}>{r.pnl} ({r.pnl_persen}%)</td>
-                <td>{r.alasan}</td></tr>
-            ))}
-          </tbody>
-        </table></div>
-      )}
 
       {d?.demo && (
         <div className="panduan">

@@ -7,6 +7,29 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: radial-gradient(1200px 500px at 50% -10%, #14203a 0%, var(--bg) 60%); color: var(--teks); min-height: 100vh; }
 .wrap { max-width: 1020px; margin: 0 auto; padding: 20px 18px 72px; }
+.wrap.terminal { max-width: 1500px; }
+/* layout 1 layar: pasar kiri, samping kanan */
+.layar { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 14px; align-items: start; }
+.samping h3 { margin-top: 0; }
+.samping h3:not(:first-child) { margin-top: 18px; }
+.tabelkartu.scroll { max-height: 260px; overflow-y: auto; }
+.badge.mini { font-size: 10px; padding: 3px 8px; }
+@media (max-width: 1024px) {
+  .layar { grid-template-columns: 1fr; }
+  .wrap.terminal .grid.pasar6 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+}
+/* strip agen kompak di hero */
+.status .agens { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin-top: 10px; }
+.status .agen { align-items: center; text-align: center; padding: 6px 4px; }
+.status .agen .aemoji { font-size: 18px; }
+.status .agen .anama { font-size: 10px; }
+@media (max-width: 720px) { .status .agens { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* garang: sudut tajam + glow sinyal */
+.card.pasar { border-radius: 10px; border-left-width: 4px; }
+.card.pasar.beli { box-shadow: 0 0 18px rgba(74, 222, 128, 0.12); }
+.card.pasar.jual { box-shadow: 0 0 18px rgba(248, 113, 113, 0.12); }
+.topnav .brand b { letter-spacing: 1px; }
+h3 { text-transform: uppercase; letter-spacing: 1px; font-size: 13px; }
 .sub { color: var(--redup); font-size: 13px; }
 /* navigasi atas */
 .topnav { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 18px; margin: 0 -18px 20px; background: rgba(10, 13, 19, 0.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--garis); }
@@ -48,6 +71,8 @@ h3 { margin: 30px 0 12px; font-size: 16px; display: flex; align-items: center; g
 h3::after { content: ""; flex: 1; height: 1px; background: var(--garis); }
 /* kartu pasar */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.grid.pasar6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1280px) { .grid.pasar6 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .card { background: linear-gradient(180deg, var(--panel), var(--panel2)); border: 1px solid var(--garis); border-radius: var(--r); padding: 18px 20px; }
 .card.pasar { border-top: 3px solid var(--redup2); }
 .card.pasar.beli { border-top-color: var(--hijau); }
