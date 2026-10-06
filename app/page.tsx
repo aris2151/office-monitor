@@ -220,7 +220,6 @@ export default function Page() {
           }}>{suara ? "🔔" : "🔕"}</button>
           <a href="/chat" className="chatlink">⚡</a>
           <a href="/bubbles" className="chatlink bubblelink">🫧</a>
-          <a href="/ai" className="chatlink" title="Fungsi AI">🧠</a>
         </div>
       </header>
 
