@@ -246,6 +246,9 @@ export default function Page() {
               <span>ATR <b>{ind.atr_pct?.toFixed(2) ?? "—"}%</b></span>
               <span>Range <b>{ind.range_pos?.toFixed(2) ?? "—"}</b></span>
               <span>MOM <b>{ind.mom3 === 1 ? "▲" : ind.mom3 === -1 ? "▼" : "—"}</b></span>
+              <span>OBI <b>{(aktif as any).mikro?.obi != null ? ((aktif as any).mikro.obi > 0 ? "+" : "") + (aktif as any).mikro.obi.toFixed(2) : "—"}</b></span>
+              <span>CVD <b>{(aktif as any).mikro?.cvd_usdt != null ? (((aktif as any).mikro.cvd_usdt >= 0 ? "+" : "") + ((aktif as any).mikro.cvd_usdt / 1000).toFixed(0) + "k") : "—"}</b></span>
+              <span>Fund <b>{(aktif as any).mikro?.funding_rate != null ? ((aktif as any).mikro.funding_rate * 100).toFixed(4) + "%" : "—"}</b></span>
               <span>SL <b>{aktif.stop_loss ?? "—"}</b></span>
               <span>TP <b>{aktif.take_profit ?? "—"}</b></span>
             </div>
