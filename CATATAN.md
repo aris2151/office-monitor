@@ -17,7 +17,14 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0c. TAHAP-1 SCALPING (7 Okt ~02:50): GERBANG MERAH, 2 KANTONG HIJAU KECIL
+## 0d. ADOPSI JARVIS-RINGAN (7 Okt ~03:25): RAPAT KANTOR LIVE
+- File unduhan terpotong (CrewAI+OpenRouter) TIDAK diinstal; idenya diadopsi ringan di atas
+  pipeline+Groq existing: bot/rapat.py -> dialog_agen.json + vault/Rapat_<tgl>.md (frontmatter tags).
+- Snapshot + dashboard dapat panel "RAPAT KANTOR" (speech-bubble Analis/Otak/Risiko/Eksekutor per pair).
+- Tunnel: https://arrives-ethical-inches-editions.trycloudflare.com
+- INSIDEN: edit audit merusak brain.py (except menempel) -> produksi gagal start 1x. Aturan baru:
+  WAJIB py_compile + uji sebelum restart produksi. Sudah diperbaiki + terverifikasi (rapat: 24).
+- Groq 429 sesekali (limit gratis) -> fallback rule otomatis, pulih sendiri.
 - Data: 8799 candle 5m x6 pair (6 Sep-6 Okt) + 4H, monoton, candle tak-lengkap dibuang.
 - Biaya jujur: taker 0.06%/sisi + spread terukur x2 (13-21 bps/trade). Entry/exit di OPEN berikut.
 - Grid 24 kombinasi (SL/TP, 4H on/off, trailing, sisi dua/long/short). File: bot/backtest_scalp.py.
