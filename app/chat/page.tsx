@@ -5,7 +5,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 type Chat = { id: string; judul: string; pesan: Msg[] };
 
 const PROVIDERS: Record<string, string[]> = {
-  groq: ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "qwen-qwq-32b"],
+  groq: ["openai/gpt-oss-20b", "qwen/qwen3.8-27b", "openai/gpt-oss-120b"],
   gemini: ["gemini-2.0-flash", "gemini-2.0-flash-lite"],
 };
 const SYS = "Kamu asisten AI berbahasa Indonesia yang cerdas, santai, dan to-the-point seperti Grok. Jawab singkat kecuali diminta detail.";

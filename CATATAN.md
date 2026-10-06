@@ -1,12 +1,12 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (produksi restart 14:30, 12 agen + neuro slot) — lanjut di kantor
-- Bot loop (12 agen), snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://mississippi-psi-colours-regularly.trycloudflare.com` (berubah tiap restart!)
-- CoinGecko: chg24 + dom BTC + mcap + TRENDING (top 7) masuk analis/snapshot/web/brain.
-- Neurobro: API BERBAYAR $49/bln tanpa free tier → agen `neuro` siap tapi MATI (status off). Aktifkan hanya bila langganan.
-- Vercel: BELUM deploy. Token PAT: BELUM direvoke (masih aktif!).
+## 0. STATUS TERAKHIR (otak GROQ aktif 14:52!) — lanjut di kantor
+- Bot loop (12 agen, otak=groq gpt-oss-20b), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://receipt-attorney-ranging-relaxation.trycloudflare.com` (berubah tiap restart!)
+- Key Groq: di env User + monitor\.env.local (file txt DIHAPUS). Chat lokal tanpa input key ✅ (teruji jawab soal BTC live).
+- Model Groq aktif Okt 2026: openai/gpt-oss-20b, qwen/qwen3.8-27b (llama-3.3-70b SUDAH PENSIUN!).
+- Vercel: BELUM deploy (tambah GROQ_API_KEY ke env bila chat publik diinginkan). Token PAT GitHub: BELUM direvoke.
 - Lanjut: deploy Vercel + revoke token.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅

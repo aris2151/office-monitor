@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // Key dari browser (localStorage) atau env server. Tidak disimpan di mana pun.
 // Output: SSE ternormalisasi -> data: {"t":"potongan teks"} ... data: [DONE]
 
-const GROQ_MODELS = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "qwen-qwq-32b"];
+const GROQ_MODELS = ["openai/gpt-oss-20b", "qwen/qwen3.8-27b", "openai/gpt-oss-120b"];
 const GEMINI_MODELS = ["gemini-2.0-flash", "gemini-2.0-flash-lite"];
 
 // Ambil konteks live kantor trading agar chat jadi ASISTEN (tahu posisi/sinyal/ekuitas).
