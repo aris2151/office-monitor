@@ -144,10 +144,10 @@ export default function Page() {
       <h3>📂 Posisi terbuka ({Object.keys(d?.posisi ?? {}).length})</h3>
       {Object.keys(d?.posisi ?? {}).length === 0 ? <div className="kosong2">Tidak ada posisi.</div> : (
         <div className="tabelkartu"><table>
-          <thead><tr><th>Simbol</th><th>Beli @</th><th>Koin</th><th>SL</th><th>TP</th></tr></thead>
+          <thead><tr><th>Simbol</th><th>Side</th><th>Lev</th><th>Beli @</th><th>Koin</th><th>SL</th><th>TP</th></tr></thead>
           <tbody>
             {Object.entries(d!.posisi).map(([k, v]: any) => (
-              <tr key={k}><td>{k}</td><td>{v.harga_beli}</td><td>{v.koin}</td><td>{v.stop_loss}</td><td>{v.take_profit}</td></tr>
+              <tr key={k}><td>{k}</td><td>{v.side ?? "SPOT"}</td><td>{v.leverage ? `${v.leverage}x` : "—"}</td><td>{v.harga_beli}</td><td>{v.koin}</td><td>{v.stop_loss}</td><td>{v.take_profit}</td></tr>
             ))}
           </tbody>
         </table></div>

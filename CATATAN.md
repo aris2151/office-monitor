@@ -1,13 +1,11 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (otak GROQ aktif 14:52!) — lanjut di kantor
-- Bot loop (12 agen, otak=groq gpt-oss-20b), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://receipt-attorney-ranging-relaxation.trycloudflare.com` (berubah tiap restart!)
-- Key Groq: di env User + monitor\.env.local (file txt DIHAPUS). Chat lokal tanpa input key ✅ (teruji jawab soal BTC live).
-- Model Groq aktif Okt 2026: openai/gpt-oss-20b, qwen/qwen3.8-27b (llama-3.3-70b SUDAH PENSIUN!).
-- Vercel: BELUM deploy (tambah GROQ_API_KEY ke env bila chat publik diinginkan). Token PAT GitHub: BELUM direvoke.
-- Lanjut: deploy Vercel + revoke token.
+## 0. STATUS TERAKHIR (futures paper SIAP, produksi tetap SPOT) — lanjut di kantor
+- Mode futures paper SELESAI + teruji: candles USDT-M, LONG/SHORT 3x, SL/TP cermin, likuidasi, balik arah.
+  Bukti: SHORT TP +14.79%, LIQ -100%, SINYAL_BALIK ok. Config: trade_type spot|futures, leverage (cap 1-10).
+- Produksi SENGAJA tetap spot (aman). Ganti ke futures: ubah trade_type + restart. ⚠️ Futures uang asli SANGAT berisiko!
+- Tunnel URL: cek `tunnel.log` (berubah tiap restart). Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
