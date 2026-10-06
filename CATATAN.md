@@ -17,7 +17,15 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0e. VALIDASI 90 HARI (7 Okt ~04:00): KANTONG HIJAU GUGUR, SCALPING DITUNDA
+## 0f. TAHAP-2 BERITA LIVE (7 Okt ~03:50): AGEN KE-13 AKTIF
+- bot/agents/news.py: RSS Cointelegraph/Decrypt/TheBlock/CoinDesk (tanpa key), filter 12 jam,
+  dedupe, klasifikasi HIGH/MED/LOW + arah, relevansi pair (regex word-boundary: "tether" tidak
+  lagi nyasar ke ETH), cache TTL 600 dtk (1 fetch/siklus utk 6 pair), fail-safe kosong.
+- Otak terima BERITA di konteks (skor N terbantu). Risiko: HIGH-negatif breaking -> veto 100
+  (sirkuit pemutus), HIGH-negatif biasa -> veto 60. Dashboard panel BERITA + skor + tanda breaking.
+- Live: 8 headline, skor -58 (hari negatif: gugatan Tether), breaking False.
+- Tunnel: https://las-trailers-engagement-screensaver.trycloudflare.com
+- Binance-news API dibuang (timeout dari Python). CoinDesk ikut via redirect.
 - Data Binance 25.999 candle 5m x6 pair (8 Jul-6 Okt) + 4H. Grid 36 kombinasi: trend + mean-reversion.
 - HASIL: SEMUA MERAH kedua model (terbaik BTC -4.7, ETH -3.9, SOL -4.8, DOGE -2.8, PEPE -6.9, WIF -9.5).
 - Kantong 30d (ETH-short +2.0, PEPE-long +0.5) TIDAK bertahan 90d = noise/overfit (n kecil). Terbukti benar divalidasi.
