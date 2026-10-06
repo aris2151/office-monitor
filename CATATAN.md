@@ -1,12 +1,15 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (candle+PnL+lantai+bunyi, restart) — lanjut di kantor
-- Bot loop (12 agen futures paper), snapshot, tunnel publik, web, LIVE ticker+candles: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://cosmetic-oxide-intensive-minutes.trycloudflare.com` (berubah tiap restart!)
-- Baru: 🕯️ chart candle 1m realtime (WS, 60 candle/koin, tab 6 simbol) + 📉 kurva ekuitas PnL kumulatif +
-  🏢 lantai kantor (12 agen jalan patroli, berhenti = nganggur) + 🔔 bunyi (profit naik/rugi turun/posisi blip,
-  perlu klik 🔔 sekali karena aturan browser). Tombol 🎙️ voice di chat.
+## 0. STATUS TERAKHIR (terminal hacker 18:59) — lanjut di kantor
+- Bot loop (12 agen futures paper), snapshot KAYA (indikator, veto, events, max_posisi), tunnel, web: HIDUP ✅
+- Tunnel URL aktif: `https://talks-affect-treaty-contacts.trycloudflare.com` (berubah tiap restart!)
+- Dashboard = terminal hacker (referensi grok-trencher): topbar TIMER/BALANCE/MULTIPLE/NOT BUY/LIVE,
+  equity+PnL bar, cincin konsensus (keyakinan/deployed/risk), panel open position + uPnL live,
+  desk feed (events), scan grid heatmap (tren/mom/rsi/24h/conf × 6 pair), edge model (winrate/avgW/avgL/E),
+  sizing, narrative+otak, live candle. 5 SHORT terbuka.
+- Framework konsensus ala txt: risk VETO (candle-basi/rem/penuh=100, conf=60, sentimen=40) + reasoning log
+  + jurnal. Futures: rem & max_posisi berlaku untuk SHORT juga.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Lanjut: deploy Vercel + revoke token.
 
