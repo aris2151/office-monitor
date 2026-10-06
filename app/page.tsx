@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Simbol = {
   symbol: string; harga: number; sinyal: string; sinyal_final: string;
@@ -47,11 +47,95 @@ function fmtUmur(detik: number | null): string {
   return `${Math.floor(m / 60)} jam lalu`;
 }
 
+function bunyi(ctx: AudioContext, nada: number[], dur = 0.12) {
+  nada.forEach((f, i) => {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "sine"; o.frequency.value = f;
+    const t = ctx.currentTime + i * (dur + 0.03);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t); o.stop(t + dur + 0.05);
+  });
+}
+
+// Grafik candle SVG (ringan, tanpa lib)
+function CandleSVG({ data }: { data: number[][] }) {
+  const W = 560, H = 180, P = 8;
+  const c = (data ?? []).slice(-40);
+  if (c.length < 2) return <div className="kosong2">Menunggu candle live…</div>;
+  const hs = c.flatMap((k) => [k[2], k[3]]);
+  let hi = Math.max(...hs), lo = Math.min(...hs);
+  if (hi === lo) { hi *= 1.001; lo *= 0.999; }
+  const y = (v: number) => P + (1 - (v - lo) / (hi - lo)) * (H - P * 2);
+  const bw = (W - P * 2) / c.length;
+  const last = c[c.length - 1][4];
+  const naikLast = last >= c[c.length - 1][1];
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="chart" preserveAspectRatio="none" style={{ height: 180 }}>
+      {[0.25, 0.5, 0.75].map((f) => (
+        <line key={f} x1={P} x2={W - P} y1={H * f} y2={H * f} className="gridline" />
+      ))}
+      {c.map((k, i) => {
+        const [ts, o, h, l, cl] = k;
+        const naik = cl >= o;
+        const x = P + i * bw + bw / 2;
+        const col = naik ? "#4ade80" : "#f87171";
+        return (
+          <g key={ts + "-" + i}>
+            <line x1={x} x2={x} y1={y(h)} y2={y(l)} stroke={col} strokeWidth={1.5} />
+            <rect x={x - Math.max(2, bw * 0.3)} y={Math.min(y(o), y(cl))}
+              width={Math.max(4, bw * 0.6)} height={Math.max(1.5, Math.abs(y(cl) - y(o)))}
+              fill={col} />
+          </g>
+        );
+      })}
+      <line x1={P} x2={W - P} y1={y(last)} y2={y(last)}
+        stroke={naikLast ? "#4ade80" : "#f87171"} strokeWidth={1} strokeDasharray="5 4" />
+      <text x={W - P} y={y(last) - 4} className="hargalast" textAnchor="end">{last}</text>
+    </svg>
+  );
+}
+
+// Kurva ekuitas dari riwayat (kumulatif PnL)
+function EquitySVG({ riwayat, ekuitas }: { riwayat: any[]; ekuitas?: number }) {
+  const W = 560, H = 110, P = 8;
+  const rp = (riwayat ?? []).map((t: any) => t.pnl ?? 0);
+  if (rp.length === 0) return <div className="kosong2">Belum ada trade — kurva muncul setelah trade pertama.</div>;
+  const total = rp.reduce((a, b) => a + b, 0);
+  const awal = (ekuitas ?? 1000000) - total;
+  const pts = [awal];
+  rp.forEach((p) => pts.push(pts[pts.length - 1] + p));
+  const hi = Math.max(...pts), lo = Math.min(...pts);
+  const rg = hi === lo ? 1 : hi - lo;
+  const X = (i: number) => P + (i / (pts.length - 1 || 1)) * (W - P * 2);
+  const Y = (v: number) => P + (1 - (v - lo) / rg) * (H - P * 2);
+  const line = pts.map((v, i) => `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(" ");
+  const up = pts[pts.length - 1] >= pts[0];
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="chart" preserveAspectRatio="none" style={{ height: 110 }}>
+      <polygon points={`${P},${H - P} ${line} ${X(pts.length - 1).toFixed(1)},${H - P}`}
+        className={up ? "areaup" : "areadown"} />
+      <polyline points={line} className={up ? "lineup" : "linedown"} />
+      <text x={W - P} y={P + 10} className="hargalast" textAnchor="end">
+        {total >= 0 ? "+" : ""}{total.toFixed(0)} ({(((pts[pts.length - 1] / awal - 1) * 100)).toFixed(2)}%)
+      </text>
+    </svg>
+  );
+}
+
 export default function Page() {
   const [d, setD] = useState<Data | null>(null);
   const [err, setErr] = useState("");
   const [now, setNow] = useState(Date.now());
   const [live, setLive] = useState<Record<string, any>>({});
+  const [lilin, setLilin] = useState<Record<string, number[][]>>({});
+  const [simChart, setSimChart] = useState("BTCUSDT");
+  const [suara, setSuara] = useState(false);
+  const prev = useRef({ trades: 0, posisi: 0 });
+  const audioRef = useRef<AudioContext | null>(null);
 
   async function muat() {
     try {
@@ -63,6 +147,7 @@ export default function Page() {
     }
   }
   useEffect(() => {
+    try { if (localStorage.getItem("grok_suara") === "1") setSuara(true); } catch {}
     muat();
     const t = setInterval(muat, 15000);
     const jam = setInterval(() => setNow(Date.now()), 5000);
@@ -71,6 +156,7 @@ export default function Page() {
         const r = await fetch("/api/live", { cache: "no-store" });
         const j = await r.json();
         if (j.tick) setLive(j.tick);
+        if (j.candles) setLilin(j.candles);
       } catch { /* abaikan */ }
     }, 3000);
     return () => { clearInterval(t); clearInterval(jam); clearInterval(tik); };
@@ -80,6 +166,26 @@ export default function Page() {
   // Maskot status: BERTUGAS bila data live & fresh (<5 mnt), NGANGGUR bila demo/basi/offline
   const tugas = d && !d.demo && !d.offline && umur !== null && umur < 300;
   void now;
+
+  // Notifikasi suara: bunyi saat ada trade tutup / posisi baru (perlu toggle dulu - syarat browser)
+  useEffect(() => {
+    if (!suara || !d || d.demo) return;
+    const nT = (d.riwayat ?? []).length;
+    const nP = Object.keys(d.posisi ?? {}).length;
+    if (prev.current.trades === 0) { prev.current = { trades: nT, posisi: nP }; return; }
+    const AC = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AC) return;
+    if (!audioRef.current) { try { audioRef.current = new AC(); } catch { return; } }
+    const ctxA = audioRef.current;
+    if (ctxA.state === "suspended") ctxA.resume().catch(() => {});
+    if (nT > prev.current.trades) {
+      const last = d.riwayat[d.riwayat.length - 1];
+      bunyi(ctxA, (last?.pnl ?? 0) >= 0 ? [660, 880] : [440, 330]); // cuan naik, rugi turun
+    } else if (nP > prev.current.posisi) {
+      bunyi(ctxA, [520]); // posisi baru: blip
+    }
+    prev.current = { trades: nT, posisi: nP };
+  }, [d, suara]);
 
   return (
     <div className="wrap terminal">
@@ -95,6 +201,13 @@ export default function Page() {
           </span>
           <a href="/chat" className="chatlink">⚡</a>
           <a href="/bubbles" className="chatlink bubblelink">🫧</a>
+          <button className={`bel ${suara ? "on" : ""}`} title="Notifikasi suara"
+            onClick={() => {
+              const v = !suara;
+              setSuara(v);
+              try { localStorage.setItem("grok_suara", v ? "1" : "0"); } catch {}
+              if (v && d) prev.current = { trades: (d.riwayat ?? []).length, posisi: Object.keys(d.posisi ?? {}).length };
+            }}>{suara ? "🔔" : "🔕"}</button>
         </div>
       </nav>
 
@@ -129,6 +242,17 @@ export default function Page() {
             ))}</div>
           </section>
 
+          <div className="lantai" title="Lantai kantor — agen sedang patroli">
+            <div className="lantai-label">🏢 LANTAI KANTOR</div>
+            <div className="jalan">
+              {KARAKTER.map((a, i) => (
+                <span key={a.id} className={`pejalan ${tugas ? "jalan" : ""}`}
+                  style={{ ["--dur" as any]: `${9 + (i % 5) * 2.4}s`, animationDelay: `${-i * 1.7}s, 0s` }}
+                  title={`${a.nama} — ${a.peran}`}>{a.emoji}</span>
+              ))}
+            </div>
+          </div>
+
           <h3>📈 Pasar {d?.simbol?.[0]?.gecko ? (
             <span className="sub">🌍 Dom BTC {d.simbol[0].gecko.btc_dom}% • MC 24h {d.simbol[0].gecko.mcap_chg24}% • 🔥 {(d.simbol[0].gecko.trending ?? []).slice(0, 5).join(" ")}</span>
           ) : null}</h3>
@@ -150,6 +274,21 @@ export default function Page() {
                 <div className="row"><span>SL / TP</span><b>{s.stop_loss ? "$" + Number(s.stop_loss).toLocaleString("en-US") : "—"} / {s.take_profit ? "$" + Number(s.take_profit).toLocaleString("en-US") : "—"}</b></div>
               </div>
             ))}
+          </div>
+
+          <h3>🕯️ Candle Live (1m) + 📉 Ekuitas</h3>
+          <div className="grid chart2">
+            <div className="card">
+              <div className="tabrow">{(d?.simbol ?? []).map((s) => (
+                <button key={s.symbol} className={simChart === s.symbol ? "tab on" : "tab"}
+                  onClick={() => setSimChart(s.symbol)}>{s.symbol.replace("USDT", "")}</button>
+              ))}</div>
+              <CandleSVG data={lilin[simChart] ?? []} />
+            </div>
+            <div className="card">
+              <div className="tabrow"><span className="sub">Kurva PnL kumulatif paper</span></div>
+              <EquitySVG riwayat={d?.riwayat ?? []} ekuitas={d?.portofolio?.ekuitas} />
+            </div>
           </div>
         </div>
 

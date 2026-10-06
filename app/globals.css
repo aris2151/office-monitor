@@ -39,6 +39,28 @@ h3 { text-transform: uppercase; letter-spacing: 1px; font-size: 13px; }
 .chip { background: var(--panel); border: 1px solid var(--garis); border-radius: 999px; padding: 5px 12px; font-size: 12px; }
 .chatlink { font-size: 13px; text-decoration: none; background: #1d4ed8; color: #fff; padding: 6px 14px; border-radius: 999px; font-weight: 700; }
 .chatlink.bubblelink { background: #0e7490; }
+.bel { background: var(--panel); border: 1px solid var(--garis); border-radius: 999px; padding: 5px 12px; font-size: 14px; cursor: pointer; }
+.bel.on { border-color: #1d5c3a; box-shadow: 0 0 10px rgba(74, 222, 128, 0.3); }
+/* lantai kantor: agen patroli jalan */
+.lantai { margin-top: 12px; background: linear-gradient(180deg, #0d1526, #0a0f1c); border: 1px solid var(--garis); border-radius: 12px; padding: 8px 14px 4px; overflow: hidden; }
+.lantai-label { font-size: 10px; letter-spacing: 2px; color: var(--redup2); }
+.jalan { position: relative; height: 44px; border-bottom: 2px solid #2a3a58; }
+.pejalan { position: absolute; bottom: 2px; left: 0; font-size: 24px; opacity: 0.45; }
+.pejalan.jalan { opacity: 1; animation: patroli var(--dur, 12s) linear infinite, langkah 0.45s ease-in-out infinite; }
+@keyframes patroli { from { transform: translateX(-40px) } to { transform: translateX(1050px); } }
+@keyframes langkah { 0%,100% { margin-bottom: 0; } 50% { margin-bottom: 5px; } }
+/* chart */
+.grid.chart2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.chart { width: 100%; display: block; }
+.gridline { stroke: #223048; stroke-width: 1; opacity: 0.6; }
+.hargalast { fill: #9aa3b2; font-size: 11px; }
+.lineup { fill: none; stroke: #4ade80; stroke-width: 2; }
+.linedown { fill: none; stroke: #f87171; stroke-width: 2; }
+.areaup { fill: rgba(74, 222, 128, 0.12); }
+.areadown { fill: rgba(248, 113, 113, 0.12); }
+.tabrow { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+.tab { background: var(--panel2); border: 1px solid var(--garis); color: var(--redup); border-radius: 8px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+.tab.on { color: #fff; border-color: #1d4ed8; background: #1d4ed833; }
 /* strip harga live */
 .ticker { display: flex; gap: 8px; overflow-x: auto; padding: 10px 4px; margin-bottom: 6px; }
 .tikit { background: var(--panel); border: 1px solid var(--garis); border-radius: 999px; padding: 5px 14px; font-size: 13px; white-space: nowrap; color: var(--redup); }
