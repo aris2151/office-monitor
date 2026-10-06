@@ -17,7 +17,15 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0h. REV3 + LEAD-LAG + VAULT PENUH (7 Okt ~04:25)
+## 0i. REV4 UI COMMAND-CENTER (7 Okt ~04:45)
+- Statusbar: AUTOPILOT ACTIVE | MODE A | REGIME BEAR-CONDITIONAL | POSISI + countdown rotasi.
+- Auto-rotasi chart 30 dtk antar pair berposisi (klik manual = jeda 90 dtk) + badge timer di chart.
+- SCAN top-30 (CoinGecko, refresh 60 dtk) + overlay sinyal AI B/S untuk 6 pair kita.
+- Chips agen (Analis/Otak/Risiko/Eksekutor): hijau-pulse aktif, MERAH-pulse veto, abu standby.
+  Snapshot: regime + autopilot. Rapat: status veto (risiko>=60). Compact CSS.
+- UTANG (tindakan manusia): 1) Revoke PAT di github.com/settings/tokens. 2) Vercel: login browser
+  via `vercel login` lalu `vercel --prod` di folder monitor (BOT_URL = URL tunnel).
+- Tunnel: https://swim-added-jewel-amp.trycloudflare.com
 - Verdict rev3: #3 DECOUPLE SALAH (5 SHORT dibuka 6 Okt 17:42 era lev3x, Rapat TAHAN = keputusan
   hari ini; eksekutor patuh aturan zamannya) | #2 cluster VALID -> veto maks 2 searah (cluster-penuh)
   | #1 groq-gagal VALID -> retry 1x + validasi JSON | #4 SL-display SEPARUH-BENAR (data ada di ledger,
