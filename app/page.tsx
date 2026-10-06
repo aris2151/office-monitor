@@ -73,53 +73,56 @@ export default function Page() {
 
   return (
     <div className="wrap">
-      <header>
-        <div>
-          <h1>🏢 Office Trading Monitor</h1>
-          <div className="sub">10 agen • {d?.exchange ?? "…"} • mode {d?.mode ?? "…"} • update {d?.waktu ?? "…"} • <a href="/chat">⚡ Chat AI</a></div>
+      <nav className="topnav">
+        <div className="brand">🏢 <b>Office Trading</b> <span>bitget • paper</span></div>
+        <div className="navkanan">
           {d?.portofolio?.ekuitas ? (
-            <div className="sub">💰 Ekuitas Rp {Number(d.portofolio.ekuitas).toLocaleString("id-ID")} (
-              <b className={d.portofolio.ret_pct >= 0 ? "beli" : "jual"}>{d.portofolio.ret_pct}%</b>
-              ) • harian {d.portofolio.harian_pct}% • posisi {d.portofolio.posisi_terbuka}</div>
+            <span className="chip">💰 Rp {Number(d.portofolio.ekuitas).toLocaleString("id-ID")} (
+              <b className={d.portofolio.ret_pct >= 0 ? "beli" : "jual"}>{d.portofolio.ret_pct}%</b>)</span>
           ) : null}
+          <span className={`badge ${d && !d.demo ? "live" : "demo"}`}>
+            {d && !d.demo ? "● LIVE" : "● DEMO"}
+          </span>
+          <a href="/chat" className="chatlink">⚡ Chat AI</a>
         </div>
-        <span className={`badge ${d && !d.demo ? "live" : "demo"}`}>
-          {d && !d.demo ? "● LIVE" : "● DEMO"}
-        </span>
-      </header>
+      </nav>
 
       {d?.offline && <div className="err">⚠️ Laptop offline (tunnel mati?). Menampilkan data terakhir/demo. Nyalakan office + tunnel.</div>}
       {err && <div className="err">{err}</div>}
 
-      <div className={`status ${tugas ? "tugas" : "nganggur"}`}>
+      <section className={`status ${tugas ? "tugas" : "nganggur"}`}>
         <div className="char">{tugas ? "🤖" : "😴"}</div>
-        <div>
+        <div className="sinfo">
           <div className="stitle">{tugas ? "BERTUGAS" : "Nganggur"}</div>
           <div className="sub">
             {!d ? "menghubungi bot…" :
              d.demo ? "data contoh (pasang BOT_URL agar LIVE)" :
              d.offline ? "bot/tunnel mati" :
              umur === null ? "waktu data tak terbaca" :
-             `data ${fmtUmur(umur)}${umur >= 300 ? " — basi! cek bot/tunnel" : ""}`}
+             `update ${d.waktu} (${fmtUmur(umur)})${umur >= 300 ? " — basi! cek bot/tunnel" : ""}`}
           </div>
-          <div className="agens">{KARAKTER.map((a) => (
-            <div key={a.id} className={`agen ${tugas ? "on" : ""}`} title={a.peran}>
-              <span className="aemoji">{a.emoji}</span>
-              <span className="anama">{a.nama}</span>
-              <span className="ainfo">{d ? a.info(d) : "…"}</span>
-            </div>
-          ))}</div>
         </div>
-      </div>
+      </section>
 
+      <h3>🤖 Pasukan Agen (10)</h3>
+      <div className="agens">{KARAKTER.map((a) => (
+        <div key={a.id} className={`agen ${tugas ? "on" : ""}`} title={a.peran}>
+          <span className="aemoji">{a.emoji}</span>
+          <span className="anama">{a.nama}</span>
+          <span className="ainfo">{d ? a.info(d) : "…"}</span>
+        </div>
+      ))}</div>
+
+      <h3>📈 Pasar</h3>
       <div className="grid">
         {(d?.simbol ?? []).map((s) => (
-          <div className="card" key={s.symbol}>
-            <h2>{s.symbol}</h2>
+          <div className={`card pasar ${warna(s.sinyal_final)}`} key={s.symbol}>
+            <div className="pasaratas">
+              <h2>{s.symbol}</h2>
+              <span className={`pilsinyal ${warna(s.sinyal_final)}`}>{s.sinyal_final}</span>
+            </div>
             <div className="harga">${s.harga?.toLocaleString("en-US")}</div>
-            <div className="row"><span>Sinyal analis</span><b className={warna(s.sinyal)}>{s.sinyal}</b></div>
-            <div className="row"><span>Final (risiko)</span><b className={warna(s.sinyal_final)}>{s.sinyal_final}</b></div>
-            <div className="row"><span>Confidence</span><b>{((s.confidence ?? 0) * 100).toFixed(0)}%</b></div>
+            <div className="row"><span>Analis</span><b className={warna(s.sinyal)}>{s.sinyal} • {((s.confidence ?? 0) * 100).toFixed(0)}%</b></div>
             <div className="row"><span>Stop-loss</span><b>{s.stop_loss ? "$" + Number(s.stop_loss).toLocaleString("en-US") : "—"}</b></div>
             <div className="row"><span>Take-profit</span><b>{s.take_profit ? "$" + Number(s.take_profit).toLocaleString("en-US") : "—"}</b></div>
           </div>
@@ -127,20 +130,20 @@ export default function Page() {
       </div>
 
       <h3>📂 Posisi terbuka ({Object.keys(d?.posisi ?? {}).length})</h3>
-      {Object.keys(d?.posisi ?? {}).length === 0 ? <small>Tidak ada posisi.</small> : (
-        <table>
+      {Object.keys(d?.posisi ?? {}).length === 0 ? <div className="kosong2">Tidak ada posisi.</div> : (
+        <div className="tabelkartu"><table>
           <thead><tr><th>Simbol</th><th>Beli @</th><th>Koin</th><th>SL</th><th>TP</th></tr></thead>
           <tbody>
             {Object.entries(d!.posisi).map(([k, v]: any) => (
               <tr key={k}><td>{k}</td><td>{v.harga_beli}</td><td>{v.koin}</td><td>{v.stop_loss}</td><td>{v.take_profit}</td></tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       )}
 
       <h3>📜 Riwayat (20 terakhir)</h3>
-      {(d?.riwayat ?? []).length === 0 ? <small>Belum ada trade tertutup.</small> : (
-        <table>
+      {(d?.riwayat ?? []).length === 0 ? <div className="kosong2">Belum ada trade tertutup.</div> : (
+        <div className="tabelkartu"><table>
           <thead><tr><th>Waktu</th><th>Simbol</th><th>PnL</th><th>Alasan</th></tr></thead>
           <tbody>
             {d!.riwayat.slice().reverse().map((r: any, i: number) => (
@@ -149,7 +152,7 @@ export default function Page() {
                 <td>{r.alasan}</td></tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       )}
 
       {d?.demo && (
