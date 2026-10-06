@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 type Simbol = {
   symbol: string; harga: number; sinyal: string; sinyal_final: string;
-  confidence: number; stop_loss: number | null; take_profit: number | null;
+  confidence: number; stop_loss: number | null; take_profit: number | null; gecko?: any;
 };
 type Data = {
   waktu: string; exchange: string; mode: string; demo?: boolean; offline?: boolean;
@@ -114,6 +114,11 @@ export default function Page() {
       ))}</div>
 
       <h3>📈 Pasar</h3>
+      {d?.simbol?.[0]?.gecko ? (
+        <div className="sub" style={{ marginBottom: 10 }}>
+          🌍 Dominasi BTC {d.simbol[0].gecko.btc_dom}% • Kapitalisasi global 24h {d.simbol[0].gecko.mcap_chg24}% (CoinGecko)
+        </div>
+      ) : null}
       <div className="grid">
         {(d?.simbol ?? []).map((s) => (
           <div className={`card pasar ${warna(s.sinyal_final)}`} key={s.symbol}>
@@ -121,7 +126,10 @@ export default function Page() {
               <h2>{s.symbol}</h2>
               <span className={`pilsinyal ${warna(s.sinyal_final)}`}>{s.sinyal_final}</span>
             </div>
-            <div className="harga">${s.harga?.toLocaleString("en-US")}</div>
+            <div className="harga">${s.harga?.toLocaleString("en-US")} {s.gecko ? (
+              <span className={`chg ${(s.gecko.chg24 ?? 0) >= 0 ? "beli" : "jual"}`}>
+                {(s.gecko.chg24 ?? 0) >= 0 ? "▲" : "▼"} {Math.abs(s.gecko.chg24 ?? 0).toFixed(2)}%
+              </span>) : null}</div>
             <div className="row"><span>Analis</span><b className={warna(s.sinyal)}>{s.sinyal} • {((s.confidence ?? 0) * 100).toFixed(0)}%</b></div>
             <div className="row"><span>Stop-loss</span><b>{s.stop_loss ? "$" + Number(s.stop_loss).toLocaleString("en-US") : "—"}</b></div>
             <div className="row"><span>Take-profit</span><b>{s.take_profit ? "$" + Number(s.take_profit).toLocaleString("en-US") : "—"}</b></div>
