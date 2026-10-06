@@ -275,6 +275,7 @@ export default function Page() {
                   <div key={k} className="posrow">
                     <div><b>{k.replace("USDT", "")}</b> <span className={v.side === "LONG" ? "beli" : "jual"}>{v.side} {v.leverage}x</span></div>
                     <div className={y >= 0 ? "beli" : "jual"}><b>{y >= 0 ? "+" : ""}{y.toFixed(0)}</b></div>
+                    <div className="sub">SL {v.stop_loss != null ? Number(v.stop_loss).toFixed(v.stop_loss < 10 ? 4 : 1) : "—"} • TP {v.take_profit != null ? Number(v.take_profit).toFixed(v.take_profit < 10 ? 4 : 1) : "—"}{v.liq != null ? ` • liq ${Number(v.liq).toFixed(0)}` : ""}</div>
                   </div>
                 );
               })}
