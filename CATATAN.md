@@ -17,7 +17,14 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0b. AUDIT MENDALAM 01:45 — temuan & perbaikan
+## 0c. TAHAP-1 SCALPING (7 Okt ~02:50): GERBANG MERAH, 2 KANTONG HIJAU KECIL
+- Data: 8799 candle 5m x6 pair (6 Sep-6 Okt) + 4H, monoton, candle tak-lengkap dibuang.
+- Biaya jujur: taker 0.06%/sisi + spread terukur x2 (13-21 bps/trade). Entry/exit di OPEN berikut.
+- Grid 24 kombinasi (SL/TP, 4H on/off, trailing, sisi dua/long/short). File: bot/backtest_scalp.py.
+- HASIL: 4/6 pair MERAH semua varian (BTC -5.3, SOL -3.5, WIF -2.5, DOGE ~0).
+  HIJAU KECIL: ETH short-only +1.99% (PF 1.51, n=18, DD 2.1), PEPE long-only +0.49% (PF 1.09, n=25).
+  n kecil = belum bukti kuat, risiko overfit. TEMUAN: arah regime penentu; filter 4H bantu ETH, rugikan PEPE.
+- GERBANG GAGAL -> tidak bangun scalper.py dulu. Opsi: validasi 90 hari + uji mean-reversion. Tunggu putusan user.
 1. Tunnel MATI DIAM-DIAM (proses hidup, koneksi putus, publik 000). Perbaikan: restart tunnel +
    protokol: selalu cek PUBLIK HTTP (bukan cuma proses) tiap audit. Quick tunnel memang tidak stabil >12 jam.
 2. File PAT GitHub di OneDrive (tersinkron!) DIHAPUS. Revoke online TETAP WAJIB (file hilang != token mati).
