@@ -1,13 +1,14 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (6 koin meme/Solana 17:28) — lanjut di kantor
-- Bot loop (13 agen, 6 pair), snapshot, tunnel publik, web lokal, LIVE ticker: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://eur-tourist-coated-helpful.trycloudflare.com` (berubah tiap restart!)
-- Pairs: BTC+ETH (SL2/TP4) + SOL (SL2/TP4) + DOGE (SL4/TP8) + PEPE/WIF (SL6/TP12). max_posisi 3.
-  Fee % SAMA semua koin (0.1%) — yang beda volatilitasnya. Siklus 6 pair ~21 dtk (aman < 120 dtk).
-- Akun Binance konek. trade paper-only. Vercel: BELUM deploy. Token PAT: BELUM direvoke.
-- Lanjut: deploy Vercel + revoke token.
+## 0. STATUS TERAKHIR (EKSEKUSI JALAN 17:44, futures paper!) — lanjut di kantor
+- 5 SHORT 3x TERBUKA: BTC@84728, ETH@2686, SOL@119.5, DOGE@0.0928, PEPE@4.3e-06. Ekuitas bergerak mulai siklus ini.
+- Tunnel URL aktif: `https://basically-survivor-freebsd-entering.trycloudflare.com` (berubah tiap restart!)
+- Bersih-bersih: hapus bot.py v1, run_*.bat, kobold/, neuro.py (+kabel), venv langsing (requests+websocket-client+idna).
+  INSIDEN: hapus idna ikut requests → office crash tanpa jejak di jendela (ketahuan via traceback manual). JANGAN hapus dep requests lagi.
+- Produksi = FUTURES PAPER (bukan spot). Akun Binance konek read-only. trade paper-only.
+- Vercel: BELUM deploy. Token PAT: BELUM direvoke.
+- Lanjut: deploy Vercel + revoke token. Cara baca log: jendela OFFICE-BOT + bot\paper_trading.log.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
