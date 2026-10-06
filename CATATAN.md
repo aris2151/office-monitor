@@ -1,15 +1,14 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (adopsi repo 17:09, 13 agen) — lanjut di kantor
-- Bot loop, snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://provinces-son-remove-corporate.trycloudflare.com` (berubah tiap restart!)
-- Adopsi repo: (1) okx-2pa: analisis 2-FASE (fase1 struktur + fase2 keputusan),
-  freshness guard (candle basi→TAHAN), JURNAL keputusan harian records/*.jsonl;
-  (2) trading-assistant: voice input 🎙️ di chat (Web Speech API, gratis);
-  (3) vercel/ai SDK: chat tool-calling terverifikasi jawab angka live.
-  DITOLAK: launch-your-agent (butuh Claude API bayar), OpenMinis (app mobile, bukan stack kita),
-  clone full okx-2pa (exchange OKX tak dipakai + butuh VPS).
+## 0. STATUS TERAKHIR (live ticker + bubble 17:21) — lanjut di kantor
+- Bot loop (13 agen), snapshot, tunnel publik, web lokal, LIVE ticker: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://plastics-nominations-pace-final.trycloudflare.com` (berubah tiap restart!)
+- CoinGecko = skor momentum 24h + dominasi + trending (BUKAN harga strategi; strategi pakai candles Bitget).
+  Cuma 2 koin karena config pairs BTC+ETH (tambah = tambah beban Groq/loop; paper fokus dulu).
+- Realtime: WebSocket Bitget (live.json tiap 2 dtk, strip harga + badge ● live) — pajangan, strategi tetap 1H.
+- Halaman 🫧 Bubbles: top 50 CoinGecko (ukuran=mcap, warna=24h), cache 5 mnt.
+- START-SEMUA kini 5 jendela (+LIVE). Akun Binance konek. trade paper-only.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Lanjut: deploy Vercel + revoke token.
 
