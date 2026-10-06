@@ -14,9 +14,27 @@ function warna(s: string) {
   return s === "BELI" ? "beli" : s === "JUAL" ? "jual" : "tahan";
 }
 
+const AGEN = ["market", "analis", "sentimen", "otak", "risiko", "eksekutor", "reporter", "portofolio", "refleksi", "notif"];
+
+function umurDetik(waktu?: string): number | null {
+  if (!waktu) return null;
+  const t = Date.parse(waktu.replace(" ", "T"));
+  if (isNaN(t)) return null;
+  return Math.max(0, Math.round((Date.now() - t) / 1000));
+}
+
+function fmtUmur(detik: number | null): string {
+  if (detik === null) return "tidak diketahui";
+  if (detik < 60) return `${detik} dtk lalu`;
+  const m = Math.floor(detik / 60);
+  if (m < 60) return `${m} mnt lalu`;
+  return `${Math.floor(m / 60)} jam lalu`;
+}
+
 export default function Page() {
   const [d, setD] = useState<Data | null>(null);
   const [err, setErr] = useState("");
+  const [now, setNow] = useState(Date.now());
 
   async function muat() {
     try {
@@ -30,8 +48,14 @@ export default function Page() {
   useEffect(() => {
     muat();
     const t = setInterval(muat, 15000);
-    return () => clearInterval(t);
+    const jam = setInterval(() => setNow(Date.now()), 5000);
+    return () => { clearInterval(t); clearInterval(jam); };
   }, []);
+
+  const umur = umurDetik(d?.waktu);
+  // Maskot status: BERTUGAS bila data live & fresh (<5 mnt), NGANGGUR bila demo/basi/offline
+  const tugas = d && !d.demo && !d.offline && umur !== null && umur < 300;
+  void now;
 
   return (
     <div className="wrap">
@@ -52,6 +76,23 @@ export default function Page() {
 
       {d?.offline && <div className="err">⚠️ Laptop offline (tunnel mati?). Menampilkan data terakhir/demo. Nyalakan office + tunnel.</div>}
       {err && <div className="err">{err}</div>}
+
+      <div className={`status ${tugas ? "tugas" : "nganggur"}`}>
+        <div className="char">{tugas ? "🤖" : "😴"}</div>
+        <div>
+          <div className="stitle">{tugas ? "BERTUGAS" : "Nganggur"}</div>
+          <div className="sub">
+            {!d ? "menghubungi bot…" :
+             d.demo ? "data contoh (pasang BOT_URL agar LIVE)" :
+             d.offline ? "bot/tunnel mati" :
+             umur === null ? "waktu data tak terbaca" :
+             `data ${fmtUmur(umur)}${umur >= 300 ? " — basi! cek bot/tunnel" : ""}`}
+          </div>
+          <div className="agenbar">{AGEN.map((a) => (
+            <span key={a} className={tugas ? "on" : ""} title={a}>{tugas ? "●" : "○"} {a}</span>
+          ))}</div>
+        </div>
+      </div>
 
       <div className="grid">
         {(d?.simbol ?? []).map((s) => (

@@ -23,6 +23,18 @@ code { background: #0b0e14; border: 1px solid #232c44; border-radius: 6px; paddi
 .err { color: #f87171; font-size: 13px; margin-top: 12px; }
 small { color: #9aa3b2; }
 a { color: #7dd3fc; }
+/* --- Maskot status bertugas/nganggur --- */
+.status { display: flex; gap: 16px; align-items: center; border-radius: 14px; padding: 14px 18px; margin: 16px 0; border: 1px solid #232c44; background: #131826; }
+.status .char { font-size: 54px; line-height: 1; }
+.status.tugas { border-color: #1d5c3a; background: #0e2018; }
+.status.tugas .char { animation: kerja 1.6s ease-in-out infinite; }
+@keyframes kerja { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
+.status.nganggur .char { filter: grayscale(1); opacity: 0.8; }
+.status .stitle { font-size: 20px; font-weight: 800; letter-spacing: 1px; }
+.status.tugas .stitle { color: #4ade80; }
+.status.nganggur .stitle { color: #9aa3b2; }
+.agenbar { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 8px; font-size: 11px; color: #5b6577; }
+.agenbar .on { color: #4ade80; }
 /* --- Chat ala-Grok --- */
 .chat { display: flex; height: 100vh; }
 .chat aside { width: 260px; background: #0e1320; border-right: 1px solid #232c44; display: flex; flex-direction: column; padding: 12px; gap: 10px; }
