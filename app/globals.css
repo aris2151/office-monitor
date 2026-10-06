@@ -245,7 +245,27 @@ a { color: var(--biru); }
 .exside { display: flex; flex-direction: column; gap: 12px; }
 .posrow { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(34,48,72,.6); font-size: 13px; }
 .posrow:last-child { border-bottom: none; }
-.exbottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-top: 12px; }
+  .exbottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-top: 12px; }
+
+  /* rev4: command-center compact + scan + agen chips + statusbar */
+  .panel { padding: 10px 12px; }
+  .phead { font-size: 10px; margin-bottom: 8px; padding-bottom: 6px; }
+  .feed { max-height: 180px; font-size: 11px; gap: 4px; }
+  .statusbar { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; letter-spacing: 1px; color: var(--redup); background: var(--panel2); border: 1px solid var(--garis); border-radius: 8px; padding: 6px 12px; margin-bottom: 10px; }
+  .statusbar b { color: var(--teks); }
+  .rotbadge { font-size: 10px; color: var(--redup); border: 1px solid var(--garis); border-radius: 6px; padding: 1px 6px; margin-left: 8px; }
+  .scan { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; max-height: 180px; overflow-y: auto; }
+  .scancell { border: 1px solid var(--garis); border-radius: 6px; padding: 3px 4px; font-size: 10px; display: flex; flex-direction: column; line-height: 1.3; }
+  .scancell b { font-size: 10px; }
+  .scancell span { color: var(--redup); }
+  .scancell.naik { border-left: 2px solid var(--hijau); }
+  .scancell.turun { border-left: 2px solid var(--merah); }
+  .scancell i { font-style: normal; font-weight: bold; }
+  .agenchips { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+  .agenchip { font-size: 11px; border: 1px solid var(--garis); border-radius: 6px; padding: 2px 8px; color: #555; background: rgba(255,255,255,.02); }
+  .agenchip.active { color: #00ff66; border-color: #00ff66; background: rgba(0,255,102,.08); animation: pulse 1.6s infinite; }
+  .agenchip.veto { color: #ff3355; border-color: #ff3355; background: rgba(255,51,85,.1); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
 @media (max-width: 1024px) { .exbottom { grid-template-columns: 1fr; } }
 .sysagents { font-size: 20px; display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
 .sysagents .off { filter: grayscale(1); opacity: .4; }

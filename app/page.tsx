@@ -6,6 +6,7 @@ type Data = {
   max_posisi?: number; max_rugi_harian?: number;
   demo?: boolean; offline?: boolean; simbol: any[]; posisi: Record<string, any>;
   riwayat: any[]; portofolio?: any; akun?: any; events?: any[]; rapat?: any[]; berita?: any;
+  regime?: string; autopilot?: string;
 };
 
 function umurDetik(waktu?: string): number | null {
@@ -109,6 +110,11 @@ export default function Page() {
   const [lilin, setLilin] = useState<Record<string, number[][]>>({});
   const [pair, setPair] = useState("BTCUSDT");
   const [suara, setSuara] = useState(false);
+  const [scan, setScan] = useState<any[]>([]);
+  const [nextRot, setNextRot] = useState(0);
+  const manualRef = useRef(0);
+  const pairRef = useRef(pair);
+  pairRef.current = pair;
   const prev = useRef({ trades: 0, posisi: 0 });
   const audioRef = useRef<AudioContext | null>(null);
 
@@ -120,6 +126,11 @@ export default function Page() {
     } catch (e) {
       setErr("Gagal memuat status: " + String(e));
     }
+    try {
+      const r = await fetch("/api/bubbles", { cache: "no-store" });
+      const j = await r.json();
+      if (j.koin) setScan(j.koin.slice(0, 30));
+    } catch { /* abaikan */ }
   }
   useEffect(() => {
     try { if (localStorage.getItem("grok_suara") === "1") setSuara(true); } catch {}
@@ -134,7 +145,28 @@ export default function Page() {
         if (j.candles) setLilin(j.candles);
       } catch { /* abaikan */ }
     }, 3000);
-    return () => { clearInterval(t); clearInterval(jam); clearInterval(tik); };
+    const sc = setInterval(async () => {
+      try {
+        const r = await fetch("/api/bubbles", { cache: "no-store" });
+        const j = await r.json();
+        if (j.koin) setScan(j.koin.slice(0, 30));
+      } catch { /* abaikan */ }
+    }, 60000);
+    return () => { clearInterval(t); clearInterval(jam); clearInterval(tik); clearInterval(sc); };
+  }, []);
+
+  // Auto-rotasi chart tiap 30 dtk di antara pair berposisi (klik manual = jeda 90 dtk)
+  const poolRef = useRef<string[]>([]);
+  useEffect(() => {
+    setNextRot(Date.now() + 30000);
+    const rot = setInterval(() => {
+      const pool = poolRef.current;
+      if (Date.now() < manualRef.current || pool.length < 2) { setNextRot(Date.now() + 30000); return; }
+      const i = pool.indexOf(pairRef.current);
+      setPair(pool[(i + 1) % pool.length] ?? pool[0]);
+      setNextRot(Date.now() + 30000);
+    }, 30000);
+    return () => clearInterval(rot);
   }, []);
 
   const umur = umurDetik(d?.waktu);
@@ -179,6 +211,15 @@ export default function Page() {
   const ekuitas = d?.portofolio?.ekuitas ?? 1000000;
   const ret = d?.portofolio?.ret_pct ?? 0;
   const nPos = Object.keys(d?.posisi ?? {}).length;
+  poolRef.current = nPos ? Object.keys(d?.posisi ?? {}) : sims.map((s: any) => s.symbol);
+  const rotSisa = Math.max(0, Math.ceil((nextRot - now) / 1000));
+  // Agregat status agen dari rapat terakhir: veto > active > standby
+  const agenStat: Record<string, string> = {};
+  for (const r of (d?.rapat ?? []) as any[]) {
+    const cur = agenStat[r.name];
+    const rank: Record<string, number> = { standby: 0, active: 1, veto: 2 };
+    if ((rank[r.status] ?? 0) > (rank[cur] ?? -1)) agenStat[r.name] = r.status;
+  }
   const riw = d?.riwayat ?? [];
   const menang = riw.filter((t: any) => (t.pnl ?? 0) > 0);
   const wr = riw.length ? menang.length / riw.length * 100 : 0;
@@ -203,7 +244,7 @@ export default function Page() {
             const nm = s.symbol.replace("USDT", "");
             const up = (s.gecko?.chg24 ?? 0) >= 0;
             return (
-              <button key={s.symbol} onClick={() => setPair(s.symbol)}
+              <button key={s.symbol} onClick={() => { setPair(s.symbol); manualRef.current = Date.now() + 90000; setNextRot(Date.now() + 90000); }}
                 className={`pairtab ${pair === s.symbol ? "on" : ""} ${s.sinyal_final === "BELI" ? "sbeli" : s.sinyal_final === "JUAL" ? "sjual" : ""}`}>
                 <b>{nm}</b>
                 <span className={up ? "beli" : "jual"}>{up ? "▲" : "▼"} {Math.abs(s.gecko?.chg24 ?? 0).toFixed(2)}%</span>
@@ -225,12 +266,20 @@ export default function Page() {
 
       {err && <div className="err">{err}</div>}
 
+      <div className="statusbar">
+        <span>AUTOPILOT: <b className="beli">{tugas ? "ACTIVE" : "OFF"}</b></span>
+        <span>MODE: <b>{d?.autopilot ?? "A"}</b></span>
+        <span>REGIME: <b className={(d?.regime ?? "").startsWith("bear") ? "jual" : (d?.regime ?? "").startsWith("bull") ? "beli" : ""}>{(d?.regime ?? "—").toUpperCase()}</b></span>
+        <span>POSISI: <b>{nPos}</b></span>
+        <span className="sub">rotasi chart {rotSisa} dtk</span>
+      </div>
+
       <main className="exmain">
         <section className="exchart panel">
           {aktif ? (<>
             <div className="pairhead">
               <div>
-                <h2>{aktif.symbol.replace("USDT", "")} <span className="sub">/ USDT • PERP • 1m</span></h2>
+                <h2>{aktif.symbol.replace("USDT", "")} <span className="sub">/ USDT • PERP • 1m</span> <span className="rotbadge">⏱ {rotSisa}s</span></h2>
                 <div className="bigprice">${Number(aktif.harga).toLocaleString("en-US")}
                   <span className={`chg ${(chg ?? 0) >= 0 ? "beli" : "jual"}`}> {(chg ?? 0) >= 0 ? "▲" : "▼"} {Math.abs(chg ?? 0).toFixed(2)}% 24h</span>
                 </div>
@@ -315,7 +364,7 @@ export default function Page() {
             {(d?.rapat ?? []).slice(0, 8).map((r: any, i: number) => (
               <div key={i} className="feedev">
                 <b>{r.name}</b> <small>[{r.symbol}]</small>
-                <span className={r.status === "active" ? "beli" : "sub"}> ●</span>
+                <span className={r.status === "veto" ? "jual" : r.status === "active" ? "beli" : "sub"}> ●</span>
                 <div className="sub">{r.speech}</div>
               </div>
             ))}
@@ -335,11 +384,34 @@ export default function Page() {
           </div>
         </div>
         <div className="panel">
+          <div className="phead">SCAN • TOP 30</div>
+          <div className="scan">
+            {scan.map((c: any) => {
+              const up = (c.chg24 ?? 0) >= 0;
+              const ai = sims.find((s: any) => s.symbol === c.symbol + "USDT" || s.symbol.startsWith(c.symbol))?.sinyal_final;
+              return (
+                <div key={c.symbol} className={`scancell ${up ? "naik" : "turun"}`} title={`${c.nama} $${c.harga}`}>
+                  <b>{c.symbol}</b>
+                  <span>{up ? "▲" : "▼"} {Math.abs(c.chg24 ?? 0).toFixed(1)}%</span>
+                  {ai && ai !== "TAHAN" ? <i className={ai === "BELI" ? "beli" : "jual"}>{ai === "BELI" ? "B" : "S"}</i> : null}
+                </div>
+              );
+            })}
+            {scan.length === 0 ? <div className="sub">Memuat scan…</div> : null}
+          </div>
+        </div>
+        <div className="panel">
           <div className="phead">SYSTEM • {tugas ? "BERTUGAS" : "Nganggur"}</div>
           <div className="sysagents">
             {["📡", "🦎", "📊", "📰", "🧠", "🛡️", "⚡", "📝", "💰", "🪞", "🔔", "🏦"].map((e, i) => (
               <span key={i} className={tugas ? "on" : "off"}>{e}</span>
             ))}
+          </div>
+          <div className="agenchips">
+            {[["Analis", "📊"], ["Otak", "🧠"], ["Risiko", "🛡️"], ["Eksekutor", "⚡"]].map(([nm, em]) => {
+              const st = agenStat[nm] ?? "standby";
+              return <span key={nm} className={`agenchip ${st}`}>{em} {nm}</span>;
+            })}
           </div>
           <div className="sub">12 agen • {d?.trade_type} • {fmtUmur(umur)}</div>
         </div>
