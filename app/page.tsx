@@ -5,7 +5,7 @@ type Data = {
   waktu: string; exchange: string; mode: string; trade_type?: string; leverage?: number;
   max_posisi?: number; max_rugi_harian?: number;
   demo?: boolean; offline?: boolean; simbol: any[]; posisi: Record<string, any>;
-  riwayat: any[]; portofolio?: any; akun?: any; events?: any[];
+  riwayat: any[]; portofolio?: any; akun?: any; events?: any[]; rapat?: any[];
 };
 
 function umurDetik(waktu?: string): number | null {
@@ -303,6 +303,19 @@ export default function Page() {
               <div key={i} className="feedev"><span className="fwaktu">{e.waktu?.slice(11)}</span> {e.teks}</div>
             ))}
             {(d?.events ?? []).length === 0 ? <div className="sub">Bot patroli…</div> : null}
+          </div>
+        </div>
+        <div className="panel">
+          <div className="phead">RAPAT KANTOR 🗣️</div>
+          <div className="feed">
+            {(d?.rapat ?? []).slice(0, 8).map((r: any, i: number) => (
+              <div key={i} className="feedev">
+                <b>{r.name}</b> <small>[{r.symbol}]</small>
+                <span className={r.status === "active" ? "beli" : "sub"}> ●</span>
+                <div className="sub">{r.speech}</div>
+              </div>
+            ))}
+            {(d?.rapat ?? []).length === 0 ? <div className="sub">Menunggu siklus bot…</div> : null}
           </div>
         </div>
         <div className="panel">
