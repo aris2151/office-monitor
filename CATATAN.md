@@ -1,15 +1,12 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (live ticker + bubble 17:21) — lanjut di kantor
-- Bot loop (13 agen), snapshot, tunnel publik, web lokal, LIVE ticker: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://plastics-nominations-pace-final.trycloudflare.com` (berubah tiap restart!)
-- CoinGecko = skor momentum 24h + dominasi + trending (BUKAN harga strategi; strategi pakai candles Bitget).
-  Cuma 2 koin karena config pairs BTC+ETH (tambah = tambah beban Groq/loop; paper fokus dulu).
-- Realtime: WebSocket Bitget (live.json tiap 2 dtk, strip harga + badge ● live) — pajangan, strategi tetap 1H.
-- Halaman 🫧 Bubbles: top 50 CoinGecko (ukuran=mcap, warna=24h), cache 5 mnt.
-- START-SEMUA kini 5 jendela (+LIVE). Akun Binance konek. trade paper-only.
-- Vercel: BELUM deploy. Token PAT: BELUM direvoke.
+## 0. STATUS TERAKHIR (6 koin meme/Solana 17:28) — lanjut di kantor
+- Bot loop (13 agen, 6 pair), snapshot, tunnel publik, web lokal, LIVE ticker: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://eur-tourist-coated-helpful.trycloudflare.com` (berubah tiap restart!)
+- Pairs: BTC+ETH (SL2/TP4) + SOL (SL2/TP4) + DOGE (SL4/TP8) + PEPE/WIF (SL6/TP12). max_posisi 3.
+  Fee % SAMA semua koin (0.1%) — yang beda volatilitasnya. Siklus 6 pair ~21 dtk (aman < 120 dtk).
+- Akun Binance konek. trade paper-only. Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Lanjut: deploy Vercel + revoke token.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
