@@ -17,6 +17,23 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
+## 0j. SCALPER HIBRIDA LIVE + BUG OBI DIPERBAIKI (7 Okt ~05:20)
+- Fase 0: 5 posisi legacy SHORT ditutup via bot/tutup_legacy.py (paper, net -9.886, tercatat riwayat).
+  Ledger posisi = 0 -> gate posisi-penuh terbuka untuk scalping.
+- Agen ke-15: bot/agents/scalper.py — kandidat 5m (EMA8/21 cross / RSI ekstrem + vol spike,
+  cermin backtest_scalp, fungsi deret di-import dari sana) + gate regime 4H, TTL 300 dtk, anti-repaint.
+- Hibrida: kandidat -> konteks Otak (SCALP5M) -> Groq putuskan -> risk beri sizing scalp
+  (risiko 0.5%, SL 0.5%, RR 2) HANYA bila otak LLM sukses + sinyal searah kandidat segar.
+  Groq gagal/rule -> sizing normal, scalp tidak eksekusi.
+- Eksekutor: posisi scalp ditandai tipe scalp + TIME_STOP 2 jam. Rapat: bubble Scalper ke-5 per pair.
+  Dashboard: chip Scalper + badge SCALP di POSITIONS.
+- BUG BESAR DIPERBAIKI: _mikro_txt baca obi dari ctx[mikro] yang TAK PERNAH ada (OBI hidup di depth)
+  -> _konteks crash TIAP SIKLUS sejak rev2 kapan pun fills-history sukses -> Otak MATI DIAM-DIAM
+  (journal penuh "groq-gagal-rule", Groq tak pernah dipanggil). Sekarang OBI diambil dari depth + guard None.
+  Pelajaran: "Groq OK" kemarin salah baca — yang OK hanya fallback rule.
+- Dry-run 2 siklus: kandidat 6/6 (hening, benar), Groq merespons (LLM->JUAL/TAHAN), 429 akhir siklus = limit gratis biasa.
+- Tunnel: https://nato-minds-tree-gnome.trycloudflare.com (PUBLIK:200, snapshot 05:18, 6 bubble Scalper).
+
 ## 0i. REV4 UI COMMAND-CENTER (7 Okt ~04:45)
 - Statusbar: AUTOPILOT ACTIVE | MODE A | REGIME BEAR-CONDITIONAL | POSISI + countdown rotasi.
 - Auto-rotasi chart 30 dtk antar pair berposisi (klik manual = jeda 90 dtk) + badge timer di chart.
@@ -26,6 +43,8 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - UTANG (tindakan manusia): 1) Revoke PAT di github.com/settings/tokens. 2) Vercel: login browser
   via `vercel login` lalu `vercel --prod` di folder monitor (BOT_URL = URL tunnel).
 - Tunnel: https://swim-added-jewel-amp.trycloudflare.com
+
+## 0h. REV3 + LEAD-LAG + VAULT PENUH (7 Okt ~04:25)
 - Verdict rev3: #3 DECOUPLE SALAH (5 SHORT dibuka 6 Okt 17:42 era lev3x, Rapat TAHAN = keputusan
   hari ini; eksekutor patuh aturan zamannya) | #2 cluster VALID -> veto maks 2 searah (cluster-penuh)
   | #1 groq-gagal VALID -> retry 1x + validasi JSON | #4 SL-display SEPARUH-BENAR (data ada di ledger,

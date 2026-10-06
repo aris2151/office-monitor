@@ -261,6 +261,7 @@ a { color: var(--biru); }
   .scancell.naik { border-left: 2px solid var(--hijau); }
   .scancell.turun { border-left: 2px solid var(--merah); }
   .scancell i { font-style: normal; font-weight: bold; }
+  .scalp { font-style: normal; font-size: 10px; color: #ffaa00; border: 1px solid #ffaa00; border-radius: 4px; padding: 0 4px; margin-left: 4px; }
   .agenchips { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
   .agenchip { font-size: 11px; border: 1px solid var(--garis); border-radius: 6px; padding: 2px 8px; color: #555; background: rgba(255,255,255,.02); }
   .agenchip.active { color: #00ff66; border-color: #00ff66; background: rgba(0,255,102,.08); animation: pulse 1.6s infinite; }

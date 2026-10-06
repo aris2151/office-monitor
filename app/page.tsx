@@ -322,7 +322,7 @@ export default function Page() {
                 const y = uPnL({ ...v, sym: k });
                 return (
                   <div key={k} className="posrow">
-                    <div><b>{k.replace("USDT", "")}</b> <span className={v.side === "LONG" ? "beli" : "jual"}>{v.side} {v.leverage}x</span></div>
+                    <div><b>{k.replace("USDT", "")}</b> <span className={v.side === "LONG" ? "beli" : "jual"}>{v.side} {v.leverage}x</span>{v.tipe === "scalp" ? <i className="scalp"> SCALP</i> : null}</div>
                     <div className={y >= 0 ? "beli" : "jual"}><b>{y >= 0 ? "+" : ""}{y.toFixed(0)}</b></div>
                     <div className="sub">SL {v.stop_loss != null ? Number(v.stop_loss).toFixed(v.stop_loss < 10 ? 4 : 1) : "—"} • TP {v.take_profit != null ? Number(v.take_profit).toFixed(v.take_profit < 10 ? 4 : 1) : "—"}{v.liq != null ? ` • liq ${Number(v.liq).toFixed(0)}` : ""}</div>
                   </div>
@@ -408,7 +408,7 @@ export default function Page() {
             ))}
           </div>
           <div className="agenchips">
-            {[["Analis", "📊"], ["Otak", "🧠"], ["Risiko", "🛡️"], ["Eksekutor", "⚡"]].map(([nm, em]) => {
+            {[["Analis", "📊"], ["Otak", "🧠"], ["Risiko", "🛡️"], ["Eksekutor", "⚡"], ["Scalper", "🎯"]].map(([nm, em]) => {
               const st = agenStat[nm] ?? "standby";
               return <span key={nm} className={`agenchip ${st}`}>{em} {nm}</span>;
             })}
