@@ -17,7 +17,15 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0f. TAHAP-2 BERITA LIVE (7 Okt ~03:50): AGEN KE-13 AKTIF
+## 0g. REV2 MICROSTRUCTURE LIVE (7 Okt ~04:05): OBI + CVD + FUNDING
+- Poin 3 rev2 (LLM sbg penyaring berita/pelindung modal) SUDAH jalan di Tahap 2, bukan hal baru.
+- Diterapkan poin 1: market.py kedalaman()+OBI, mikro() CVD dari fills-history + funding rate.
+  Otak terima MIKRO di konteks. Risiko: OBI melawan arah entry -> veto 40 (obi-lawan).
+  Dashboard kartu pair: OBI/CVD/Fund. Live: OBI -0.44, CVD flip -$26rb -> +$200rb (flow real-time).
+- DITOLAK JUJUR: liquidation heatmap (Binance fapi butuh API key, 401) + funding-arb lintas
+  bursa (butuh modal di 2 bursa + eksekusi real; kita paper 1 bursa). Funding hanya monitor.
+  Poin 2 (arb/stat-arb) butuh riset korelasi lead-lag terpisah bila diminta.
+- Tunnel: https://wishing-lover-continuing-amplifier.trycloudflare.com
 - bot/agents/news.py: RSS Cointelegraph/Decrypt/TheBlock/CoinDesk (tanpa key), filter 12 jam,
   dedupe, klasifikasi HIGH/MED/LOW + arah, relevansi pair (regex word-boundary: "tether" tidak
   lagi nyasar ke ETH), cache TTL 600 dtk (1 fetch/siklus utk 6 pair), fail-safe kosong.
