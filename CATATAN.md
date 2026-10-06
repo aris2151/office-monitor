@@ -1,11 +1,12 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (cek live 05:00) — lanjut di kantor
-- Bot loop, snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://together-royalty-intelligence-tennessee.trycloudflare.com` (berubah tiap restart!)
+## 0. STATUS TERAKHIR (produksi restart 11:48, kode audit) — lanjut di kantor
+- Bot loop (10 agen), snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://eve-richmond-represents-html.trycloudflare.com` (berubah tiap restart!)
+- Snapshot sudah ada `portofolio` (ekuitas). Ledger paper masih kosong.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke (masih aktif!).
-- Lanjut di kantor mulai dari: deploy Vercel + revoke token (prioritas 1-2).
+- Lanjut: deploy Vercel + revoke token (prioritas 1-2).
 - Sebelum tutup laptop: klik STOP Trading Bot (hindari proses yatim/ganda saat dibuka lagi).
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
