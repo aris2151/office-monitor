@@ -221,3 +221,31 @@ a { color: var(--biru); }
 .scansym { font-size: 12px; font-weight: 800; }
 .cell { height: 16px; border-radius: 3px; }
 .foot { margin-top: 18px; text-align: center; }
+/* ===== EXCHANGE LAYOUT (BigGet) ===== */
+.exhead { display: flex; align-items: center; gap: 14px; padding: 10px 4px; margin-bottom: 10px; flex-wrap: wrap; }
+.exbrand { display: flex; align-items: center; gap: 10px; }
+.pairs { display: flex; gap: 6px; flex: 1; overflow-x: auto; padding: 2px; }
+.pairtab { background: var(--panel2); border: 1px solid var(--garis); border-radius: 8px; padding: 6px 12px; cursor: pointer; color: var(--redup); display: flex; flex-direction: column; align-items: flex-start; gap: 1px; min-width: 86px; }
+.pairtab b { color: var(--teks); font-size: 13px; }
+.pairtab span { font-size: 11px; }
+.pairtab.on { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,229,255,.25); }
+.pairtab.sbeli { border-left: 3px solid var(--hijau); }
+.pairtab.sjual { border-left: 3px solid var(--merah); }
+.exkanan { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.exmain { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 12px; align-items: start; }
+@media (max-width: 1024px) { .exmain { grid-template-columns: 1fr; } }
+.exchart { padding: 16px 18px; }
+.pairhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+.pairhead h2 { font-size: 20px; }
+.bigprice { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; margin: 2px 0 8px; }
+.sigbox { text-align: right; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.indrow { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--redup); margin-top: 10px; }
+.indrow b { color: var(--teks); }
+.exside { display: flex; flex-direction: column; gap: 12px; }
+.posrow { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(34,48,72,.6); font-size: 13px; }
+.posrow:last-child { border-bottom: none; }
+.exbottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-top: 12px; }
+@media (max-width: 1024px) { .exbottom { grid-template-columns: 1fr; } }
+.sysagents { font-size: 20px; display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+.sysagents .off { filter: grayscale(1); opacity: .4; }
+.sysagents .on { filter: drop-shadow(0 0 4px rgba(0,229,255,.6)); }
