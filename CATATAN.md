@@ -1,11 +1,16 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (futures paper SIAP, produksi tetap SPOT) — lanjut di kantor
-- Mode futures paper SELESAI + teruji: candles USDT-M, LONG/SHORT 3x, SL/TP cermin, likuidasi, balik arah.
-  Bukti: SHORT TP +14.79%, LIQ -100%, SINYAL_BALIK ok. Config: trade_type spot|futures, leverage (cap 1-10).
-- Produksi SENGAJA tetap spot (aman). Ganti ke futures: ubah trade_type + restart. ⚠️ Futures uang asli SANGAT berisiko!
-- Tunnel URL: cek `tunnel.log` (berubah tiap restart). Vercel: BELUM deploy. Token PAT: BELUM direvoke.
+## 0. STATUS TERAKHIR (kolom API 15:10, 13 agen) — lanjut di kantor
+- Bot loop (13 agen + akun), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://florida-badly-grateful-automobiles.trycloudflare.com` (berubah tiap restart!)
+- Kolom API: Binance+Bitget bypass OK (private endpoint teruji signed request, 400/401 = konek).
+  Agen `akun` read-only (saldo+posisi), mati tanpa key, key TIDAK bocor ke log/snapshot (teruji).
+  KUNCI: trade_enabled=true → office MENOLAK jalan (paper-only, exit 2, teruji).
+- Hardening: try/except per-simbol (1 simbol gagal tidak bunuh siklus).
+- Vercel: BELUM deploy. Token PAT: BELUM direvoke. Key exchange: BELUM diisi (opsional).
+- Lanjut: deploy Vercel + revoke token. Cara konek akun: env BITGET_APIKEY/SECRET/PASSPHRASE
+  atau BINANCE_APIKEY/SECRET + exchange_api bitget|binance (cukup izin READ!).
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
