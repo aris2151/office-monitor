@@ -19,6 +19,7 @@ const AGEN = ["market", "analis", "sentimen", "otak", "risiko", "eksekutor", "re
 type AgenInfo = { id: string; emoji: string; nama: string; peran: string; info: (d: Data) => string };
 const KARAKTER: AgenInfo[] = [
   { id: "market", emoji: "📡", nama: "Market", peran: "Pencari harga Bitget", info: (d) => d.simbol[0] ? `$${Number(d.simbol[0].harga).toLocaleString("en-US")}` : "—" },
+  { id: "gecko", emoji: "🦎", nama: "Gecko", peran: "24h + trending CoinGecko", info: (d) => d.simbol[0]?.gecko ? `${(d.simbol[0].gecko.chg24 ?? 0).toFixed(2)}%/24h` : "—" },
   { id: "analis", emoji: "📊", nama: "Analis", peran: "EMA + RSI + MACD", info: (d) => d.simbol[0] ? `${d.simbol[0].sinyal} ${((d.simbol[0].confidence ?? 0) * 100).toFixed(0)}%` : "—" },
   { id: "sentimen", emoji: "📰", nama: "Sentimen", peran: "Fear & Greed", info: () => "lihat log" },
   { id: "otak", emoji: "🧠", nama: "Otak", peran: "Pengambil keputusan", info: (d) => (d.simbol[0] as any)?.otak ?? "—" },
@@ -28,7 +29,7 @@ const KARAKTER: AgenInfo[] = [
   { id: "portofolio", emoji: "💰", nama: "Portofolio", peran: "Ekuitas global", info: (d) => d.portofolio?.ekuitas ? `Rp ${Number(d.portofolio.ekuitas).toLocaleString("id-ID")}` : "—" },
   { id: "refleksi", emoji: "🪞", nama: "Refleksi", peran: "Belajar tiap 5 siklus", info: () => "auto-tune" },
   { id: "notif", emoji: "🔔", nama: "Notif", peran: "Telegram BUKA/TUTUP", info: () => "siaga" },
-  { id: "neuro", emoji: "🧬", nama: "Neuro", peran: "Pandangan kedua (berbayar)", info: (d) => (d.simbol[0] as any)?.neuro?.status ?? "off" },
+  { id: "akun", emoji: "🏦", nama: "Akun", peran: "Saldo exchange asli", info: (d) => (d as any).akun?.terhubung ? `${(d as any).akun.saldo?.length ?? 0} koin` : "off" },
 ];
 
 function umurDetik(waktu?: string): number | null {
