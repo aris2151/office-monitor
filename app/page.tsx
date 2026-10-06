@@ -7,7 +7,7 @@ type Simbol = {
 };
 type Data = {
   waktu: string; exchange: string; mode: string; demo?: boolean; offline?: boolean;
-  simbol: Simbol[]; posisi: Record<string, any>; riwayat: any[];
+  simbol: Simbol[]; posisi: Record<string, any>; riwayat: any[]; portofolio?: any;
 };
 
 function warna(s: string) {
@@ -38,7 +38,12 @@ export default function Page() {
       <header>
         <div>
           <h1>🏢 Office Trading Monitor</h1>
-          <div className="sub">6 agen • {d?.exchange ?? "…"} • mode {d?.mode ?? "…"} • update {d?.waktu ?? "…"} • <a href="/chat">⚡ Chat AI</a></div>
+          <div className="sub">10 agen • {d?.exchange ?? "…"} • mode {d?.mode ?? "…"} • update {d?.waktu ?? "…"} • <a href="/chat">⚡ Chat AI</a></div>
+          {d?.portofolio?.ekuitas ? (
+            <div className="sub">💰 Ekuitas Rp {Number(d.portofolio.ekuitas).toLocaleString("id-ID")} (
+              <b className={d.portofolio.ret_pct >= 0 ? "beli" : "jual"}>{d.portofolio.ret_pct}%</b>
+              ) • harian {d.portofolio.harian_pct}% • posisi {d.portofolio.posisi_terbuka}</div>
+          ) : null}
         </div>
         <span className={`badge ${d && !d.demo ? "live" : "demo"}`}>
           {d && !d.demo ? "● LIVE" : "● DEMO"}

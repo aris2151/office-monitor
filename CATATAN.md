@@ -8,6 +8,19 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Lanjut di kantor mulai dari: deploy Vercel + revoke token (prioritas 1-2).
 - Sebelum tutup laptop: klik STOP Trading Bot (hindari proses yatim/ganda saat dibuka lagi).
 
+## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
+Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
++ portofolio → refleksi → notif. Teruji penuh terisolasi.
+- BUG DIPERBAIKI: (1) rem harian mati antar-siklus → persist `ledger.harian` + reset tanggal;
+  (2) log tumbuh tanpa batas → rotasi 5000/3000 baris; (3) jalan-ganda → `office.lock` + arah STOP-SEMUA;
+  (4) otak rule diam → tulis `alasan_otak`.
+- AGEN BARU: `portofolio` (ekuitas mark-to-market + retensi di snapshot/web),
+  `notif` (Telegram BUKA/TUTUP, mati bila token kosong, fail-safe).
+- RISIKO: batas `max_posisi` (default 2) + rem baca ledger (bukan ctx).
+- LEDGER: tambah `events` (50 terakhir, flag terkirim) + `harian {tgl, pnl}`.
+- Web: tampil ekuitas/retensi di header (kompatibel mundur, tsc bersih).
+- Uji: siklus penuh OK, rem→TAHAN OK, maxPos→TAHAN OK, guard→exit 1 OK, notif tanpa config = no-op OK.
+
 ## 1. Ringkasan
 Bot trading kripto **otonom (agentic), paper trading, gratis, ringan (<100MB RAM)** untuk laptop 4GB.
 Loop agen: `market → analis → sentimen → otak → risiko → eksekutor → refleksi → reporter`
