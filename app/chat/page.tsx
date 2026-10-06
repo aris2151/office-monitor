@@ -161,7 +161,7 @@ export default function ChatPage() {
         </div>
       </aside>
       <main>
-        <div className="topbar"><a href="/">📊 Monitor</a><b>⚡ GrokLite</b><span /></div>
+        <div className="topbar"><a href="/">📊 Monitor</a><b><img src="/logo.png" alt="" className="logo mini" /> BigGet AI</b><span /></div>
         <div className="pesan">
           {!chat || chat.pesan.length === 0 ? (
             <div className="kosong">

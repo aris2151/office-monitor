@@ -1,11 +1,30 @@
 :root {
-  --bg: #0a0d13; --panel: #121826; --panel2: #0d121d; --garis: #223048;
-  --teks: #e8ecf3; --redup: #98a2b6; --redup2: #5f6b82;
-  --hijau: #4ade80; --merah: #f87171; --kuning: #fbbf24; --biru: #7dd3fc;
+  --bg: #05080f; --panel: #0c1424; --panel2: #080d18; --garis: #1e3a5f;
+  --teks: #e8f4ff; --redup: #8fb3d9; --redup2: #4a6a94;
+  --neon: #00e5ff; --neon2: #39ff88;
+  --hijau: #39ff88; --merah: #ff4d6d; --kuning: #ffd166; --biru: #00e5ff;
   --r: 16px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: radial-gradient(1200px 500px at 50% -10%, #14203a 0%, var(--bg) 60%); color: var(--teks); min-height: 100vh; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--teks); min-height: 100vh;
+  background-color: var(--bg);
+  background-image: linear-gradient(rgba(5, 8, 15, 0.88), rgba(5, 8, 15, 0.94)), url("/bg-circuit.jfif");
+  background-size: cover; background-attachment: fixed; background-position: center;
+}
+/* logo + teks neon BigGet */
+.logo { height: 34px; width: auto; border-radius: 8px; box-shadow: 0 0 14px rgba(0, 229, 255, 0.55); vertical-align: middle; }
+.logo.mini { height: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.neon-text {
+  font-size: 20px; font-weight: 900; letter-spacing: 2px;
+  background: linear-gradient(90deg, var(--neon), var(--neon2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+}
+.live { background: rgba(57, 255, 136, 0.12); color: var(--hijau); box-shadow: 0 0 14px rgba(57, 255, 136, 0.35); border: 1px solid rgba(57, 255, 136, 0.4); }
+.chatlink { box-shadow: 0 0 12px rgba(29, 78, 216, 0.6); }
 .wrap { max-width: 1020px; margin: 0 auto; padding: 20px 18px 72px; }
 .wrap.terminal { max-width: 1500px; }
 /* layout 1 layar: pasar kiri, samping kanan */
@@ -76,8 +95,8 @@ h3 { text-transform: uppercase; letter-spacing: 1px; font-size: 13px; }
 .bubble.naik { background: radial-gradient(circle at 35% 30%, rgba(74, 222, 128, 0.5), rgba(74, 222, 128, 0.12)); border-color: rgba(74, 222, 128, 0.5); color: var(--hijau); }
 .bubble.turun { background: radial-gradient(circle at 35% 30%, rgba(248, 113, 113, 0.5), rgba(248, 113, 113, 0.12)); border-color: rgba(248, 113, 113, 0.5); color: var(--merah); }
 .badge { display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; }
-.live { background: #123d2b; color: var(--hijau); box-shadow: 0 0 12px rgba(74, 222, 128, 0.25); }
-.demo { background: #3d2f12; color: var(--kuning); }
+.live { background: rgba(57, 255, 136, 0.12); color: var(--hijau); box-shadow: 0 0 14px rgba(57, 255, 136, 0.35); border: 1px solid rgba(57, 255, 136, 0.4); }
+.demo { background: rgba(255, 209, 102, 0.1); color: var(--kuning); border: 1px solid rgba(255, 209, 102, 0.35); }
 /* kartu status */
 .status { display: flex; gap: 18px; align-items: center; border-radius: var(--r); padding: 20px 22px; margin-bottom: 6px; border: 1px solid var(--garis); background: linear-gradient(180deg, var(--panel), var(--panel2)); }
 .status .char { font-size: 60px; line-height: 1; flex-shrink: 0; }

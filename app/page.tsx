@@ -190,7 +190,7 @@ export default function Page() {
   return (
     <div className="wrap terminal">
       <nav className="topnav">
-        <div className="brand">🐺 <b>WOLF DESK</b> <span>bitget • {d?.mode ?? "paper"} • {d?.exchange ?? ""}</span></div>
+        <div className="brand"><img src="/logo.png" alt="BigGet" className="logo" /><b className="neon-text">BigGet</b> <span>bitget • {d?.mode ?? "paper"}</span></div>
         <div className="navkanan">
           {d?.portofolio?.ekuitas ? (
             <span className="chip">💰 Rp {Number(d.portofolio.ekuitas).toLocaleString("id-ID")} (
