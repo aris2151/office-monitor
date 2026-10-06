@@ -1,12 +1,15 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (akun BINANCE konek 16:29!) — lanjut di kantor
+## 0. STATUS TERAKHIR (analisis AI TAJAM 16:52, otak groq) — lanjut di kantor
 - Bot loop (13 agen), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://breathing-myself-attempting-holder.trycloudflare.com` (berubah tiap restart!)
-- Akun Binance TERHUBUNG (read-only): saldo asli LDPEPE 0.14 + ACT 0.096 tampil di web. Key di env User
-  (file txt DIHAPUS). trade_enabled=false (paper-only, kunci aktif).
-- Vercel: BELUM deploy. Token PAT GitHub: BELUM direvoke.
+- Tunnel URL aktif: `https://jill-begin-delicious-telecom.trycloudflare.com` (berubah tiap restart!)
+- Otak dipertajam: konteks ATR%/posisi-range/momentum-3candle + prompt analis profesional (aturan ≥2 bukti,
+  ekstrem RSI, ATR+range reversal, Bahasa Indonesia) + temp 0.2 + token 1024 (model reasoning!).
+  Bukti live: ETH "EMA cepat di bawah lambat, MACD turun, 3 candle melemah" + 3 poin bukti.
+  Analisis tampil di kartu pasar web (🧠 ungu).
+- Akun Binance TERHUBUNG read-only (LDPEPE 0.14 + ACT 0.096). trade_enabled=false (paper-only).
+- Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Lanjut: deploy Vercel + revoke token.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
