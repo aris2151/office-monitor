@@ -1,7 +1,7 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (BUG WAKTU DIPERBAIKI + lev 1x, 22:40) — lanjut di kantor
+## 0. STATUS TERAKHIR (konsensus penuh + dashboard exchange, 22:58)
 - Tunnel URL aktif: `https://estimate-restrictions-beaver-slow.trycloudflare.com` (berubah tiap restart!)
 - BUG BESAR DIPERBAIKI: API kirim candles TERTUA-dulu, kode me-reverse -> SEMUA indikator (EMA/RSI/MACD)
   dihitung TERBALIK WAKTU sejak awal! Bukti: RSI 7 (palsu) -> sekarang 54-65 (masuk akal).
@@ -11,6 +11,7 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Strategi 1H EMA tidak ada edge di rezim ini. Riset lanjut: filter tren 4H / strategi mean-reversion.
   JANGAN uang asli sampai backtest hijau.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
+- Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
