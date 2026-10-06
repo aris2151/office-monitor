@@ -51,6 +51,18 @@ export default function ChatPage() {
     else localStorage.removeItem("grok_key");
   }
 
+  // Input suara gratis (Web Speech API, di browser saja, Bahasa Indonesia)
+  function dengar() {
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) { alert("Browser tidak dukung input suara (pakai Chrome/Edge)."); return; }
+    const rec = new SR();
+    rec.lang = "id-ID";
+    rec.interimResults = false;
+    rec.onresult = (e: any) => setInput((v) => (v ? v + " " : "") + e.results[0][0].transcript);
+    rec.onerror = () => {};
+    try { rec.start(); } catch { /* sudah jalan */ }
+  }
+
   async function kirim() {
     const teks = input.trim();
     if (!teks || jalan) return;
@@ -165,6 +177,7 @@ export default function ChatPage() {
           <div ref={bawah} />
         </div>
         <div className="kirim">
+          <button className="mic" onClick={dengar} title="Input suara (gratis)">🎙️</button>
           <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Tanya apa saja…"
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); kirim(); } }} />
           <button onClick={kirim} disabled={jalan}>{jalan ? "…" : "➤"}</button>
