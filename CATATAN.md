@@ -1,17 +1,16 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (terminal hacker 18:59) — lanjut di kantor
-- Bot loop (12 agen futures paper), snapshot KAYA (indikator, veto, events, max_posisi), tunnel, web: HIDUP ✅
-- Tunnel URL aktif: `https://talks-affect-treaty-contacts.trycloudflare.com` (berubah tiap restart!)
-- Dashboard = terminal hacker (referensi grok-trencher): topbar TIMER/BALANCE/MULTIPLE/NOT BUY/LIVE,
-  equity+PnL bar, cincin konsensus (keyakinan/deployed/risk), panel open position + uPnL live,
-  desk feed (events), scan grid heatmap (tren/mom/rsi/24h/conf × 6 pair), edge model (winrate/avgW/avgL/E),
-  sizing, narrative+otak, live candle. 5 SHORT terbuka.
-- Framework konsensus ala txt: risk VETO (candle-basi/rem/penuh=100, conf=60, sentimen=40) + reasoning log
-  + jurnal. Futures: rem & max_posisi berlaku untuk SHORT juga.
+## 0. STATUS TERAKHIR (BUG WAKTU DIPERBAIKI + lev 1x, 22:40) — lanjut di kantor
+- Tunnel URL aktif: `https://estimate-restrictions-beaver-slow.trycloudflare.com` (berubah tiap restart!)
+- BUG BESAR DIPERBAIKI: API kirim candles TERTUA-dulu, kode me-reverse -> SEMUA indikator (EMA/RSI/MACD)
+  dihitung TERBALIK WAKTU sejak awal! Bukti: RSI 7 (palsu) -> sekarang 54-65 (masuk akal).
+- Backtest JUJUR (urutan benar): 8 hari semua merah (-24% s/d -52% @3x); 41 hari BTC merah semua varian;
+  lev 1x: -3.26% (sinyal sedikit negatif, leverage yang membunuh). Tuning parameter TIDAK menyelamatkan.
+- TINDAKAN: leverage 3x -> 1x (hentikan pendarahan). Paper terus. 5 SHORT lama masih terbuka.
+- Strategi 1H EMA tidak ada edge di rezim ini. Riset lanjut: filter tren 4H / strategi mean-reversion.
+  JANGAN uang asli sampai backtest hijau.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
-- Lanjut: deploy Vercel + revoke token.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
