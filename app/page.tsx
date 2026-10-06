@@ -16,6 +16,20 @@ function warna(s: string) {
 
 const AGEN = ["market", "analis", "sentimen", "otak", "risiko", "eksekutor", "reporter", "portofolio", "refleksi", "notif"];
 
+type AgenInfo = { id: string; emoji: string; nama: string; peran: string; info: (d: Data) => string };
+const KARAKTER: AgenInfo[] = [
+  { id: "market", emoji: "📡", nama: "Market", peran: "Pencari harga Bitget", info: (d) => d.simbol[0] ? `$${Number(d.simbol[0].harga).toLocaleString("en-US")}` : "—" },
+  { id: "analis", emoji: "📊", nama: "Analis", peran: "EMA + RSI + MACD", info: (d) => d.simbol[0] ? `${d.simbol[0].sinyal} ${((d.simbol[0].confidence ?? 0) * 100).toFixed(0)}%` : "—" },
+  { id: "sentimen", emoji: "📰", nama: "Sentimen", peran: "Fear & Greed", info: () => "lihat log" },
+  { id: "otak", emoji: "🧠", nama: "Otak", peran: "Pengambil keputusan", info: (d) => (d.simbol[0] as any)?.otak ?? "—" },
+  { id: "risiko", emoji: "🛡️", nama: "Risiko", peran: "SL/TP + rem harian", info: (d) => d.simbol[0] ? `final ${d.simbol[0].sinyal_final}` : "—" },
+  { id: "eksekutor", emoji: "⚡", nama: "Eksekutor", peran: "Paper trading", info: (d) => `${Object.keys(d.posisi ?? {}).length} posisi` },
+  { id: "reporter", emoji: "📝", nama: "Reporter", peran: "Log + snapshot", info: (d) => d.waktu },
+  { id: "portofolio", emoji: "💰", nama: "Portofolio", peran: "Ekuitas global", info: (d) => d.portofolio?.ekuitas ? `Rp ${Number(d.portofolio.ekuitas).toLocaleString("id-ID")}` : "—" },
+  { id: "refleksi", emoji: "🪞", nama: "Refleksi", peran: "Belajar tiap 5 siklus", info: () => "auto-tune" },
+  { id: "notif", emoji: "🔔", nama: "Notif", peran: "Telegram BUKA/TUTUP", info: () => "siaga" },
+];
+
 function umurDetik(waktu?: string): number | null {
   if (!waktu) return null;
   const t = Date.parse(waktu.replace(" ", "T"));
@@ -88,8 +102,12 @@ export default function Page() {
              umur === null ? "waktu data tak terbaca" :
              `data ${fmtUmur(umur)}${umur >= 300 ? " — basi! cek bot/tunnel" : ""}`}
           </div>
-          <div className="agenbar">{AGEN.map((a) => (
-            <span key={a} className={tugas ? "on" : ""} title={a}>{tugas ? "●" : "○"} {a}</span>
+          <div className="agens">{KARAKTER.map((a) => (
+            <div key={a.id} className={`agen ${tugas ? "on" : ""}`} title={a.peran}>
+              <span className="aemoji">{a.emoji}</span>
+              <span className="anama">{a.nama}</span>
+              <span className="ainfo">{d ? a.info(d) : "…"}</span>
+            </div>
           ))}</div>
         </div>
       </div>
