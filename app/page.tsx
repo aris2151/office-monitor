@@ -50,6 +50,7 @@ export default function Page() {
   const [d, setD] = useState<Data | null>(null);
   const [err, setErr] = useState("");
   const [now, setNow] = useState(Date.now());
+  const [live, setLive] = useState<Record<string, any>>({});
 
   async function muat() {
     try {
@@ -64,7 +65,14 @@ export default function Page() {
     muat();
     const t = setInterval(muat, 15000);
     const jam = setInterval(() => setNow(Date.now()), 5000);
-    return () => { clearInterval(t); clearInterval(jam); };
+    const tik = setInterval(async () => {
+      try {
+        const r = await fetch("/api/live", { cache: "no-store" });
+        const j = await r.json();
+        if (j.tick) setLive(j.tick);
+      } catch { /* abaikan */ }
+    }, 3000);
+    return () => { clearInterval(t); clearInterval(jam); clearInterval(tik); };
   }, []);
 
   const umur = umurDetik(d?.waktu);
@@ -85,8 +93,15 @@ export default function Page() {
             {d && !d.demo ? "● LIVE" : "● DEMO"}
           </span>
           <a href="/chat" className="chatlink">⚡ Chat AI</a>
+          <a href="/bubbles" className="chatlink bubblelink">🫧 Bubbles</a>
         </div>
       </nav>
+
+      {Object.keys(live).length > 0 ? (
+        <div className="ticker">{Object.entries(live).map(([k, v]: any) => (
+          <span key={k} className="tikit">{k.replace("USDT", "")} <b>${Number(v.harga).toLocaleString("en-US")}</b></span>
+        ))}<span className="tikit live-dot">● live</span></div>
+      ) : null}
 
       {d?.offline && <div className="err">⚠️ Laptop offline (tunnel mati?). Menampilkan data terakhir/demo. Nyalakan office + tunnel.</div>}
       {err && <div className="err">{err}</div>}

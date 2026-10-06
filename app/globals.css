@@ -15,6 +15,21 @@ body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background
 .navkanan { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .chip { background: var(--panel); border: 1px solid var(--garis); border-radius: 999px; padding: 5px 12px; font-size: 12px; }
 .chatlink { font-size: 13px; text-decoration: none; background: #1d4ed8; color: #fff; padding: 6px 14px; border-radius: 999px; font-weight: 700; }
+.chatlink.bubblelink { background: #0e7490; }
+/* strip harga live */
+.ticker { display: flex; gap: 8px; overflow-x: auto; padding: 10px 4px; margin-bottom: 6px; }
+.tikit { background: var(--panel); border: 1px solid var(--garis); border-radius: 999px; padding: 5px 14px; font-size: 13px; white-space: nowrap; color: var(--redup); }
+.tikit b { color: var(--teks); font-variant-numeric: tabular-nums; }
+.live-dot { color: var(--hijau); border-color: #1d5c3a; animation: kedip 1.4s infinite; }
+@keyframes kedip { 50% { opacity: 0.5; } }
+/* crypto bubbles */
+.bubbles { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; padding: 24px 0; }
+.bubble { border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; cursor: default; transition: transform 0.15s; border: 2px solid transparent; }
+.bubble:hover { transform: scale(1.08); z-index: 2; }
+.bubble b { font-size: 13px; }
+.bubble span { font-size: 11px; opacity: 0.9; }
+.bubble.naik { background: radial-gradient(circle at 35% 30%, rgba(74, 222, 128, 0.5), rgba(74, 222, 128, 0.12)); border-color: rgba(74, 222, 128, 0.5); color: var(--hijau); }
+.bubble.turun { background: radial-gradient(circle at 35% 30%, rgba(248, 113, 113, 0.5), rgba(248, 113, 113, 0.12)); border-color: rgba(248, 113, 113, 0.5); color: var(--merah); }
 .badge { display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; }
 .live { background: #123d2b; color: var(--hijau); box-shadow: 0 0 12px rgba(74, 222, 128, 0.25); }
 .demo { background: #3d2f12; color: var(--kuning); }
