@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
 
 type Data = {
@@ -249,7 +249,9 @@ export default function Page() {
               <span>SL <b>{aktif.stop_loss ?? "—"}</b></span>
               <span>TP <b>{aktif.take_profit ?? "—"}</b></span>
             </div>
-            {(aktif as any).alasan_otak ? <div className="airow">🧠 {(aktif as any).alasan_otak}</div> : null}
+            {(aktif as any).alasan_otak ? <div className="airow">AI: {(aktif as any).alasan_otak}<span className="kons">N{(aktif as any).konsensus?.narrative_pct} L{(aktif as any).konsensus?.liquidity_pct ?? "?"} V{(aktif as any).konsensus?.risk_veto_pct} | {(aktif as any).konsensus?.action} {(aktif as any).konsensus?.risk_to_reward_ratio}</span></div> : null}
+
+
           </>) : <div className="kosong2">Menunggu data bot…</div>}
         </section>
 
