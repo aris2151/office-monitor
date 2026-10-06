@@ -189,3 +189,35 @@ a { color: var(--biru); }
 .kirim button.mic { background: #131826; border: 1px solid #2c3a5e; padding: 0 14px; }
 .kirim button:disabled { opacity: 0.5; }
 @media (max-width: 720px) { .chat aside { display: none; } }
+/* ===== HACKER TERMINAL (BigGet trencher) ===== */
+.hack { font-family: ui-monospace, 'Cascadia Code', Consolas, Menlo, monospace; }
+.hackbar { border: 1px solid var(--garis); border-radius: 10px; margin-bottom: 12px; background: rgba(8, 13, 24, 0.92); }
+.hackstats { font-size: 11px; color: var(--redup); }
+.hackstats b { color: var(--teks); font-size: 13px; }
+.kuning { color: var(--kuning); }
+.grid3 { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: stretch; }
+.grid3b { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-top: 12px; align-items: start; }
+@media (max-width: 1100px) { .grid3, .grid3b { grid-template-columns: 1fr; } }
+.panel { background: linear-gradient(180deg, rgba(12, 20, 36, 0.95), rgba(8, 13, 24, 0.95)); border: 1px solid var(--garis); border-radius: 10px; padding: 14px 16px; }
+.panel.span2 { grid-column: span 2; }
+@media (max-width: 1100px) { .panel.span2 { grid-column: span 1; } }
+.phead { font-size: 11px; letter-spacing: 2px; color: var(--redup); border-bottom: 1px solid var(--garis); padding-bottom: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.phead span { letter-spacing: 0.5px; }
+.bignum { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.bignum small { font-size: 12px; color: var(--redup); font-weight: 400; }
+.ring { display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px dashed rgba(34, 48, 72, 0.7); }
+.ring:last-child { border-bottom: none; }
+.ring svg { width: 56px; height: 56px; flex-shrink: 0; }
+.ringbg { fill: none; stroke: #1a2540; stroke-width: 7; }
+.ringfg { fill: none; stroke-width: 7; stroke-linecap: round; filter: drop-shadow(0 0 4px currentColor); }
+.ringtxt { fill: var(--teks); font-size: 13px; font-weight: 800; }
+.ringlabel { font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+.feed { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
+.feedev { border-left: 2px solid var(--neon); padding-left: 8px; color: var(--teks); }
+.fwaktu { color: var(--redup2); margin-right: 6px; }
+.scangrid { display: flex; flex-direction: column; gap: 5px; }
+.scanrow { display: grid; grid-template-columns: 64px repeat(5, 1fr); gap: 5px; align-items: center; }
+.scanhead { font-size: 10px; color: var(--redup2); }
+.scansym { font-size: 12px; font-weight: 800; }
+.cell { height: 16px; border-radius: 3px; }
+.foot { margin-top: 18px; text-align: center; }
