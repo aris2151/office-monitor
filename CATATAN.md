@@ -1,13 +1,12 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (produksi restart 11:48, kode audit) — lanjut di kantor
-- Bot loop (10 agen), snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://eve-richmond-represents-html.trycloudflare.com` (berubah tiap restart!)
-- Snapshot sudah ada `portofolio` (ekuitas). Ledger paper masih kosong.
+## 0. STATUS TERAKHIR (produksi restart 14:23, 11 agen + gecko) — lanjut di kantor
+- Bot loop (11 agen), snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://defense-kills-childhood-plain.trycloudflare.com` (berubah tiap restart!)
+- CoinGecko sinkron: chg24 + dominasi BTC + mcap global masuk analis (momentum ±1 bila |24h|≥2%), snapshot, web.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke (masih aktif!).
-- Lanjut: deploy Vercel + revoke token (prioritas 1-2).
-- Sebelum tutup laptop: klik STOP Trading Bot (hindari proses yatim/ganda saat dibuka lagi).
+- Lanjut: deploy Vercel + revoke token.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
