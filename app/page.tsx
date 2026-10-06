@@ -134,6 +134,9 @@ export default function Page() {
               <span className={`chg ${(s.gecko.chg24 ?? 0) >= 0 ? "beli" : "jual"}`}>
                 {(s.gecko.chg24 ?? 0) >= 0 ? "▲" : "▼"} {Math.abs(s.gecko.chg24 ?? 0).toFixed(2)}%
               </span>) : null}</div>
+            {(s as any).alasan_otak ? (
+              <div className="airow">🧠 {(s as any).alasan_otak}{((s as any).poin_otak ?? []).length > 0 ? ` — ${((s as any).poin_otak ?? []).join(" • ")}` : ""}</div>
+            ) : null}
             <div className="row"><span>Analis</span><b className={warna(s.sinyal)}>{s.sinyal} • {((s.confidence ?? 0) * 100).toFixed(0)}%</b></div>
             <div className="row"><span>Stop-loss</span><b>{s.stop_loss ? "$" + Number(s.stop_loss).toLocaleString("en-US") : "—"}</b></div>
             <div className="row"><span>Take-profit</span><b>{s.take_profit ? "$" + Number(s.take_profit).toLocaleString("en-US") : "—"}</b></div>

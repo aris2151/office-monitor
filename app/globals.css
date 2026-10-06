@@ -46,6 +46,7 @@ h3::after { content: ""; flex: 1; height: 1px; background: var(--garis); }
 .pilsinyal.tahan { background: rgba(251, 191, 36, 0.15); color: var(--kuning); }
 .harga { font-size: 30px; font-weight: 800; margin: 6px 0 10px; font-variant-numeric: tabular-nums; }
 .chg { font-size: 14px; font-weight: 700; vertical-align: middle; }
+.airow { font-size: 12px; color: #c4b5fd; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 10px; padding: 8px 10px; margin: 4px 0 8px; line-height: 1.5; }
 .row { display: flex; justify-content: space-between; font-size: 13px; color: var(--redup); padding: 6px 0; border-top: 1px solid rgba(34, 48, 72, 0.6); }
 .row b { color: var(--teks); }
 .beli { color: var(--hijau); } .jual { color: var(--merah); } .tahan { color: var(--kuning); }
