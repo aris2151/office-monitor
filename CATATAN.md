@@ -1,10 +1,11 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (produksi restart 14:23, 11 agen + gecko) — lanjut di kantor
-- Bot loop (11 agen), snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://defense-kills-childhood-plain.trycloudflare.com` (berubah tiap restart!)
-- CoinGecko sinkron: chg24 + dominasi BTC + mcap global masuk analis (momentum ±1 bila |24h|≥2%), snapshot, web.
+## 0. STATUS TERAKHIR (produksi restart 14:30, 12 agen + neuro slot) — lanjut di kantor
+- Bot loop (12 agen), snapshot, tunnel publik, web lokal 3000: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://mississippi-psi-colours-regularly.trycloudflare.com` (berubah tiap restart!)
+- CoinGecko: chg24 + dom BTC + mcap + TRENDING (top 7) masuk analis/snapshot/web/brain.
+- Neurobro: API BERBAYAR $49/bln tanpa free tier → agen `neuro` siap tapi MATI (status off). Aktifkan hanya bila langganan.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke (masih aktif!).
 - Lanjut: deploy Vercel + revoke token.
 
