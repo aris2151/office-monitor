@@ -28,6 +28,7 @@ const KARAKTER: AgenInfo[] = [
   { id: "portofolio", emoji: "💰", nama: "Portofolio", peran: "Ekuitas global", info: (d) => d.portofolio?.ekuitas ? `Rp ${Number(d.portofolio.ekuitas).toLocaleString("id-ID")}` : "—" },
   { id: "refleksi", emoji: "🪞", nama: "Refleksi", peran: "Belajar tiap 5 siklus", info: () => "auto-tune" },
   { id: "notif", emoji: "🔔", nama: "Notif", peran: "Telegram BUKA/TUTUP", info: () => "siaga" },
+  { id: "neuro", emoji: "🧬", nama: "Neuro", peran: "Pandangan kedua (berbayar)", info: (d) => (d.simbol[0] as any)?.neuro?.status ?? "off" },
 ];
 
 function umurDetik(waktu?: string): number | null {
@@ -104,7 +105,7 @@ export default function Page() {
         </div>
       </section>
 
-      <h3>🤖 Pasukan Agen (10)</h3>
+      <h3>🤖 Pasukan Agen (12)</h3>
       <div className="agens">{KARAKTER.map((a) => (
         <div key={a.id} className={`agen ${tugas ? "on" : ""}`} title={a.peran}>
           <span className="aemoji">{a.emoji}</span>
@@ -117,6 +118,9 @@ export default function Page() {
       {d?.simbol?.[0]?.gecko ? (
         <div className="sub" style={{ marginBottom: 10 }}>
           🌍 Dominasi BTC {d.simbol[0].gecko.btc_dom}% • Kapitalisasi global 24h {d.simbol[0].gecko.mcap_chg24}% (CoinGecko)
+          {(d.simbol[0].gecko.trending ?? []).length > 0 ? (
+            <> • 🔥 Trending: {(d.simbol[0].gecko.trending ?? []).join(" ")}</>
+          ) : null}
         </div>
       ) : null}
       <div className="grid">
