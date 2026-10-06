@@ -1,16 +1,13 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (kolom API 15:10, 13 agen) — lanjut di kantor
-- Bot loop (13 agen + akun), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://florida-badly-grateful-automobiles.trycloudflare.com` (berubah tiap restart!)
-- Kolom API: Binance+Bitget bypass OK (private endpoint teruji signed request, 400/401 = konek).
-  Agen `akun` read-only (saldo+posisi), mati tanpa key, key TIDAK bocor ke log/snapshot (teruji).
-  KUNCI: trade_enabled=true → office MENOLAK jalan (paper-only, exit 2, teruji).
-- Hardening: try/except per-simbol (1 simbol gagal tidak bunuh siklus).
-- Vercel: BELUM deploy. Token PAT: BELUM direvoke. Key exchange: BELUM diisi (opsional).
-- Lanjut: deploy Vercel + revoke token. Cara konek akun: env BITGET_APIKEY/SECRET/PASSPHRASE
-  atau BINANCE_APIKEY/SECRET + exchange_api bitget|binance (cukup izin READ!).
+## 0. STATUS TERAKHIR (akun BINANCE konek 16:29!) — lanjut di kantor
+- Bot loop (13 agen), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://breathing-myself-attempting-holder.trycloudflare.com` (berubah tiap restart!)
+- Akun Binance TERHUBUNG (read-only): saldo asli LDPEPE 0.14 + ACT 0.096 tampil di web. Key di env User
+  (file txt DIHAPUS). trade_enabled=false (paper-only, kunci aktif).
+- Vercel: BELUM deploy. Token PAT GitHub: BELUM direvoke.
+- Lanjut: deploy Vercel + revoke token.
 
 ## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
