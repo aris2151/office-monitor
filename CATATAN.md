@@ -1,8 +1,10 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (konsensus penuh + dashboard exchange, 22:58)
-- Tunnel URL aktif: `https://estimate-restrictions-beaver-slow.trycloudflare.com` (berubah tiap restart!)
+## 0. STATUS TERAKHIR (framework-2 aktif 23:12, gate 75%)
+- Tunnel URL aktif: `https://bird-substitute-mentioned-steel.trycloudflare.com` (berubah tiap restart!)
+- Framework-2: gate conf ≥75%, SL=1.5*ATR, TP=2*SL, sizing 2% equity, S/R di konteks, veto SHORT juga.
+  Backtest: rugi terpangkas 70-80% tapi MASIH MERAH semua. Lev1x, paper terus, 5 SHORT lama terbuka.
 - BUG BESAR DIPERBAIKI: API kirim candles TERTUA-dulu, kode me-reverse -> SEMUA indikator (EMA/RSI/MACD)
   dihitung TERBALIK WAKTU sejak awal! Bukti: RSI 7 (palsu) -> sekarang 54-65 (masuk akal).
 - Backtest JUJUR (urutan benar): 8 hari semua merah (-24% s/d -52% @3x); 41 hari BTC merah semua varian;
