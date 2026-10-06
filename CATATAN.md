@@ -17,7 +17,20 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0g. REV2 MICROSTRUCTURE LIVE (7 Okt ~04:05): OBI + CVD + FUNDING
+## 0h. REV3 + LEAD-LAG + VAULT PENUH (7 Okt ~04:25)
+- Verdict rev3: #3 DECOUPLE SALAH (5 SHORT dibuka 6 Okt 17:42 era lev3x, Rapat TAHAN = keputusan
+  hari ini; eksekutor patuh aturan zamannya) | #2 cluster VALID -> veto maks 2 searah (cluster-penuh)
+  | #1 groq-gagal VALID -> retry 1x + validasi JSON | #4 SL-display SEPARUH-BENAR (data ada di ledger,
+  dashboard baca sumber salah -> panel posisi kini tampil SL/TP/liq dari ledger).
+- LEAD-LAG 90d (bot/leadlag.py): korelasi L0 0.49-0.85 (bergerak BARENG), L1+ ~= 0 (NOL daya prediksi
+  di resolusi 5m), hit-rate impuls <50%. Negatif-result berharga: lag tak bisa ditrade di setup kita;
+  sekaligus membenarkan veto cluster (1 taruhan, bukan 5).
+- VAULT PENUH tier A: RULES 12 + AUTOPILOT(mode A) + AUDIT + KOORDINASI + REGIME + PELAJARAN +
+  POST-MORTEM + KANDIDAT + PAIR-x6. Refleksi upgrade (post-mortem surprise, kandidat, regime,
+  koordinasi). Otak disuntik RULES+3 pelajaran+regime tiap siklus. Obsidian TERINSTAL (winget).
+  Live: regime bear-conditional (BTC -0.28% + berita -50).
+- Buka Obsidian -> Open folder -> C:\Users\arisg\office-agent-engine\bot\vault
+- Tunnel: https://translated-immigrants-charles-jerusalem.trycloudflare.com
 - Poin 3 rev2 (LLM sbg penyaring berita/pelindung modal) SUDAH jalan di Tahap 2, bukan hal baru.
 - Diterapkan poin 1: market.py kedalaman()+OBI, mikro() CVD dari fills-history + funding rate.
   Otak terima MIKRO di konteks. Risiko: OBI melawan arah entry -> veto 40 (obi-lawan).
