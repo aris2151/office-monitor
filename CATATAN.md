@@ -1,14 +1,15 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (analisis AI TAJAM 16:52, otak groq) — lanjut di kantor
-- Bot loop (13 agen), snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
-- Tunnel URL aktif: `https://jill-begin-delicious-telecom.trycloudflare.com` (berubah tiap restart!)
-- Otak dipertajam: konteks ATR%/posisi-range/momentum-3candle + prompt analis profesional (aturan ≥2 bukti,
-  ekstrem RSI, ATR+range reversal, Bahasa Indonesia) + temp 0.2 + token 1024 (model reasoning!).
-  Bukti live: ETH "EMA cepat di bawah lambat, MACD turun, 3 candle melemah" + 3 poin bukti.
-  Analisis tampil di kartu pasar web (🧠 ungu).
-- Akun Binance TERHUBUNG read-only (LDPEPE 0.14 + ACT 0.096). trade_enabled=false (paper-only).
+## 0. STATUS TERAKHIR (adopsi repo 17:09, 13 agen) — lanjut di kantor
+- Bot loop, snapshot, tunnel publik, web lokal: SEMUA HIDUP ✅
+- Tunnel URL aktif: `https://provinces-son-remove-corporate.trycloudflare.com` (berubah tiap restart!)
+- Adopsi repo: (1) okx-2pa: analisis 2-FASE (fase1 struktur + fase2 keputusan),
+  freshness guard (candle basi→TAHAN), JURNAL keputusan harian records/*.jsonl;
+  (2) trading-assistant: voice input 🎙️ di chat (Web Speech API, gratis);
+  (3) vercel/ai SDK: chat tool-calling terverifikasi jawab angka live.
+  DITOLAK: launch-your-agent (butuh Claude API bayar), OpenMinis (app mobile, bukan stack kita),
+  clone full okx-2pa (exchange OKX tak dipakai + butuh VPS).
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Lanjut: deploy Vercel + revoke token.
 
