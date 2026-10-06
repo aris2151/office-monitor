@@ -1,7 +1,9 @@
 # CATATAN PROYEK — Office Trading Bot Otonom
 Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 
-## 0. STATUS TERAKHIR (framework-2 aktif 23:12, gate 75%)
+## 0. STATUS TERAKHIR (audit mendalam 01:45, tunnel ganti)
+- Tunnel URL aktif: `https://youth-programs-benz-fellow.trycloudflare.com` (berubah tiap restart!)
+- Bot loop, snapshot, web: HIDUP ✅ (10 jam nonstop, 299 siklus, paper).
 - Tunnel URL aktif: `https://bird-substitute-mentioned-steel.trycloudflare.com` (berubah tiap restart!)
 - Framework-2: gate conf ≥75%, SL=1.5*ATR, TP=2*SL, sizing 2% equity, S/R di konteks, veto SHORT juga.
   Backtest: rugi terpangkas 70-80% tapi MASIH MERAH semua. Lev1x, paper terus, 5 SHORT lama terbuka.
@@ -15,7 +17,16 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0b. AUDIT + PENYEMPURNAAN (6 Okt siang, di kantor) ✅
+## 0b. AUDIT MENDALAM 01:45 — temuan & perbaikan
+1. Tunnel MATI DIAM-DIAM (proses hidup, koneksi putus, publik 000). Perbaikan: restart tunnel +
+   protokol: selalu cek PUBLIK HTTP (bukan cuma proses) tiap audit. Quick tunnel memang tidak stabil >12 jam.
+2. File PAT GitHub di OneDrive (tersinkron!) DIHAPUS. Revoke online TETAP WAJIB (file hilang != token mati).
+3. Config kurang `max_sinyal_umur_detik` (pakai default diam-diam) -> DITAMBAHKAN eksplisit 7200.
+4. Teks "3 jendela" di START-SEMUA salah (sudah 5) -> diperbaiki.
+5. venv: idna WAJIB ada (dep requests) - jangan diutak-atik lagi. Daftar final: requests, websocket-client, idna, certifi, urllib3, charset-normalizer + pip/setuptools.
+6. Log consistent: file UTF-8 bersih (� hanya artefak console cp1252, bukan data rusak).
+7. Ledger tanpa key `harian` + memory tanpa pelajaran = NORMAL (belum ada trade tutup).
+8. Git bersih, snapshot lengkap, env+key ada, records jurnal jalan, live.json 6 pair x 60 candles.
 Loop agen sekarang 10: market → analis → sentimen → otak → risiko → eksekutor → reporter
 + portofolio → refleksi → notif. Teruji penuh terisolasi.
 - BUG DIPERBAIKI: (1) rem harian mati antar-siklus → persist `ledger.harian` + reset tanggal;
