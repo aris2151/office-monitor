@@ -7,7 +7,7 @@ type Simbol = {
 };
 type Data = {
   waktu: string; exchange: string; mode: string; demo?: boolean; offline?: boolean;
-  simbol: Simbol[]; posisi: Record<string, any>; riwayat: any[]; portofolio?: any;
+  simbol: Simbol[]; posisi: Record<string, any>; riwayat: any[]; portofolio?: any; akun?: any;
 };
 
 function warna(s: string) {
@@ -140,6 +140,21 @@ export default function Page() {
           </div>
         ))}
       </div>
+
+      <h3>🏦 Akun Exchange {d?.akun?.terhubung ? <span className="badge live">● TERHUBUNG ({d.akun.exchange})</span> : <span className="badge demo">○ BELUM KONEK</span>}</h3>
+      {!d?.akun?.terhubung ? <div className="kosong2">Paper mode — akun asli belum dikonekkan{d?.akun?.info && d.akun.exchange !== "off" ? `: ${d.akun.info}` : ""}. Isi API key (read-only) di config/env bot untuk pantau saldo asli.</div> : (
+        <div className="tabelkartu"><table>
+          <thead><tr><th>Koin</th><th>Saldo</th><th></th></tr></thead>
+          <tbody>
+            {(d!.akun.saldo ?? []).map((s: any, i: number) => (
+              <tr key={i}><td>{s.koin}</td><td>{s.total}</td><td /></tr>
+            ))}
+            {(d!.akun.posisi_fut ?? []).map((p: any, i: number) => (
+              <tr key={"f" + i}><td>{p.symbol} ({p.side})</td><td>{p.qty} @ {p.entry}</td><td>fut</td></tr>
+            ))}
+          </tbody>
+        </table></div>
+      )}
 
       <h3>📂 Posisi terbuka ({Object.keys(d?.posisi ?? {}).length})</h3>
       {Object.keys(d?.posisi ?? {}).length === 0 ? <div className="kosong2">Tidak ada posisi.</div> : (
