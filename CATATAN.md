@@ -17,7 +17,13 @@ Terakhir diperbarui: 6 Okt 2026 ~05:00 (UTC+7). Bahasa: Indonesia.
 - Vercel: BELUM deploy. Token PAT: BELUM direvoke.
 - Konsensus framework PENUH: N (narrative LLM) + L (orderbook asli, BTC=100) + V (risk veto) + action + size + TP + RR, tampil di kartu. Dashboard = exchange bersih. Tunnel: `https://sit-attraction-guards-lecture.trycloudflare.com`. 5 SHORT terbuka, lev1x, paper-only.
 
-## 0d. ADOPSI JARVIS-RINGAN (7 Okt ~03:25): RAPAT KANTOR LIVE
+## 0e. VALIDASI 90 HARI (7 Okt ~04:00): KANTONG HIJAU GUGUR, SCALPING DITUNDA
+- Data Binance 25.999 candle 5m x6 pair (8 Jul-6 Okt) + 4H. Grid 36 kombinasi: trend + mean-reversion.
+- HASIL: SEMUA MERAH kedua model (terbaik BTC -4.7, ETH -3.9, SOL -4.8, DOGE -2.8, PEPE -6.9, WIF -9.5).
+- Kantong 30d (ETH-short +2.0, PEPE-long +0.5) TIDAK bertahan 90d = noise/overfit (n kecil). Terbukti benar divalidasi.
+- MR winrate 50-62% tapi RR<1 membunuh (PF 0.4-0.88). Kesimpulan: indikator-5m saja tidak ada edge.
+- KEPUTUSAN: scalper.py DITUNDA. Lanjut Tahap 2 (news) + Tahap 4 (vault) yang nilainya pasti.
+  Scalping dibuka lagi sebagai hibrida setelah berita+vault+refleksi masuk (bahan bakar AI-nya).
 - File unduhan terpotong (CrewAI+OpenRouter) TIDAK diinstal; idenya diadopsi ringan di atas
   pipeline+Groq existing: bot/rapat.py -> dialog_agen.json + vault/Rapat_<tgl>.md (frontmatter tags).
 - Snapshot + dashboard dapat panel "RAPAT KANTOR" (speech-bubble Analis/Otak/Risiko/Eksekutor per pair).
